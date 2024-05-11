@@ -1,0 +1,8 @@
+<menu>
+    <Services>
+        <e2guardian VisibleName="E2guardian Content Filter" cssClass="fa fa-tags">
+            <Configuration url="/ui/e2guardian/general/index"/>
+            <Access order="30" VisibleName="Access Log" url="/ui/diagnostics/log/e2guardian/access"/>
+        </e2guardian>
+    </Services>
+</menu>

@@ -1,0 +1,18 @@
+<form>
+    <field>
+        <id>group.enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+        <help>This will enable or disable the group.</help>
+    </field>
+    <field>
+        <id>group.instance</id>
+        <label>Group number</label>
+        <type>info</type>
+    </field>
+    <field>
+        <id>group.groupname</id>
+        <label>Group name</label>
+        <type>text</type>
+    </field>
+</form>

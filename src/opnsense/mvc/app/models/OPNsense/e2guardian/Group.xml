@@ -1,0 +1,23 @@
+<model>
+    <mount>//OPNsense/e2guardian/group</mount>
+    <description>E2guardian group configuration</description>
+    <version>0.0.1</version>
+    <items>
+        <groups>
+            <group type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <instance type="AutoNumberField">
+                    <Required>Y</Required>
+                    <MinimumValue>1</MinimumValue>
+                </instance>
+                <groupname type="TextField">
+                    <default></default>
+                    <Required>Y</Required>
+                </groupname>
+            </group>
+        </groups>
+    </items>
+</model>

@@ -1,0 +1,11 @@
+<acl>
+    <page-services-e2guardian>
+        <name>Services: e2guardian</name>
+        <patterns>
+            <pattern>ui/e2guardian/*</pattern>
+            <pattern>api/e2guardian/*</pattern>
+            <pattern>ui/diagnostics/log/e2guardian/*</pattern>
+            <pattern>api/diagnostics/log/e2guardian/*</pattern>
+        </patterns>
+    </page-services-e2guardian>
+</acl>
