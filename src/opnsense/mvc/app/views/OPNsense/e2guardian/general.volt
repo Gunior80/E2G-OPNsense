@@ -19,8 +19,9 @@
             <table id="grid-groups" class="table table-condensed table-hover table-striped" data-editDialog="dialogEditE2guardianGroup">
                 <thead>
                     <tr>
-                        <th data-column-id="enabled" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
-                        <th data-column-id="groupname" data-type="string" data-visible="true">{{ lang._('Name') }}</th>
+                        <th data-column-id="enabled" data-type="string" data-formatter="rowtoggle" data-sortable="false">{{ lang._('Enabled') }}</th>
+                        <th data-column-id="instance"  data-visible="true" data-sortable="false" data-order="asc">{{ lang._('Instance') }}</th>
+                        <th data-column-id="groupname" data-type="string" data-visible="true" data-sortable="false">{{ lang._('Name') }}</th>
                         <th data-column-id="commands" data-formatter="commands" data-sortable="false">{{ lang._('Commands') }}</th>
                     </tr>
                 </thead>
@@ -31,7 +32,7 @@
                         <td colspan="3"></td>
                         <td>
                             <button data-action="add" type="button" class="btn btn-xs btn-default"><span class="fa fa-plus"></span></button>
-                            <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-trash-o"></span></button>
+
                         </td>
                     </tr>
                 </tfoot>
@@ -46,6 +47,16 @@
 </div>
 
 {{ partial("layout_partials/base_dialog",['fields':formDialogEditE2guardianGroup,'id':'dialogEditE2guardianGroup','label':lang._('Edit group')])}}
+
+<style>
+    #grid-groups .command-delete {
+        display: none; /* Скрыть кнопку по умолчанию */
+    }
+
+    #grid-groups tbody tr:last-child .command-delete {
+        display: inline-block; /* Показать кнопку только в последней строке */
+    }
+</style>
 
 <script>
 $(document).ready(function() {

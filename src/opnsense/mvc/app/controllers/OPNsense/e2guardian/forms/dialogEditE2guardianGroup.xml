@@ -8,7 +8,8 @@
     <field>
         <id>group.instance</id>
         <label>Group number</label>
-        <type>info</type>
+        <type>text</type>
+        <help>Unique number for group.</help>
     </field>
     <field>
         <id>group.groupname</id>

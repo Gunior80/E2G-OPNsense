@@ -1,10 +1,105 @@
 <form>
     <field>
         <id>general.enabled</id>
-        <label>enabled</label>
+        <label>Enabled</label>
         <type>checkbox</type>
         <help>Enable this feature</help>
     </field>
+    <field>
+        <id>general.language</id>
+        <label>The templates language</label>
+        <style>selectpicker</style>
+        <type>dropdown</type>
+        <help>Language for the HTML templates access denied page.</help>
+    </field>
+    <field>
+        <id>general.checkip</id>
+        <label>Loop prevention</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <advanced>true</advanced>
+        <help>For loop prevention purposes list all IPs e2g can be reached on Include all e2g host server IPs and any VIP used when when in an array.</help>
+    </field>
+    <field>
+        <id>general.extracheckports</id>
+        <label>Extracheckports</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <advanced>true</advanced>
+        <hint>3128</hint>
+        <help>By default e2g will loop protect for all ports defined in filterports. If you are using squid in front or other device which re-assigns ports then add the user-facing port(s) to extracheckports</help>
+    </field>
+    <field>
+        <id>general.transparenthttpsport</id>
+        <label>Port for transparent https</label>
+        <type>text</type>
+        <advanced>true</advanced>
+        <hint>8443</hint>
+        <help>To make work firewall will need to redirect tcp port 443 on routed packets to this port and ssl must be enabled with enablessl = on</help>
+    </field>
+    <field>
+        <id>general.icapport</id>
+        <label>Port for ICAP server</label>
+        <type>text</type>
+        <advanced>true</advanced>
+        <hint>1344</hint>
+        <help>If defined enables icap server mode</help>
+    </field>
+    <field>
+        <id>general.proxyip</id>
+        <label>IP of upstream proxy</label>
+        <type>text</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <advanced>true</advanced>
+        <hint>127.0.0.1</hint>
+        <help>If blank e2g will go direct to sites.</help>
+    </field>
+    <field>
+        <id>general.proxyport</id>
+        <label>Port of upstream proxy</label>
+        <type>text</type>
+        <advanced>true</advanced>
+        <hint>3128</hint>
+        <help>The port e2guardian connects to proxy on</help>
+    </field>
+    <field>
+        <id>general.enablessl</id>
+        <label>Enable SSL support</label>
+        <type>checkbox</type>
+        <advanced>true</advanced>
+        <help>This must be present to enable MITM and/or Cert checking</help>
+    </field>
+
+    <field>
+        <id>general.filterip</id>
+        <label>Listen IP</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help>The IP that e2guardian listens on. If left blank e2guardian will listen on all IPs. That would include all NICs, loopback, modem, etc. Normally you would have your firewall protecting this, but if you want you can limit it to a certain IP. If mapportstoips is 'on' you can have the same IP twice so long as it has a different port.</help>
+    </field>
+    <field>
+        <id>general.filterports</id>
+        <label>Listen ports</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help>The ports that e2guardian listens to. If both mapportstoips and mapauthtoports are set to 'on' you can specify different authentication mechanisms per port but only if the mechanisms can co-exist (e.g. basic/proxy auth can't)</help>
+    </field>
+
+    <field>
+        <id>general.cacertificatepath</id>
+        <label>CA to use</label>
+        <type>dropdown</type>
+        <help><![CDATA[Select a Certificate Authority to use. To create a CA, go to <a href="/system_camanager.php">CA Manager</a>.]]></help>
+    </field>
+
+
+
+
     <field>
         <id>general.loglevel</id>
         <label>Logging Settings</label>
@@ -17,5 +112,12 @@
         <style>selectpicker</style>
         <type>dropdown</type>
         <help>Log if an exception (user, ip, URL, phrase) is matched and so the page gets let through. Can be useful for diagnosing why a site gets through the filter.</help>
+    </field>
+    <field>
+        <id>general.mapportstoips</id>
+        <label>Map ports to IPs</label>
+        <type>checkbox</type>
+        <advanced>true</advanced>
+        <help>If enabled map filterports to filterip - number of filterports must then be same as number of filterip. If disabled will listen on all filterports on all filterips.</help>
     </field>
 </form>

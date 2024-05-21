@@ -13,7 +13,7 @@ class GroupController extends ApiMutableModelControllerBase
 
     public function searchGroupAction()
     {
-        $search = $this->searchBase( 'groups.group', array("enabled", "number", "groupname"));
+        $search = $this->searchBase( 'groups.group', array("enabled", "instance", "groupname"));
         return $search;
     }
     public function getGroupAction($uuid = null)

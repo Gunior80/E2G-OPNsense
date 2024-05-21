@@ -7,6 +7,77 @@
             <default>0</default>
             <Required>Y</Required>
         </enabled>
+        <language type="OptionField">
+            <OptionValues>
+                <eng value="ukenglish">English</eng>
+                <rus value="russian">Русский</rus>
+            </OptionValues>
+            <Required>Y</Required>
+            <default>ukenglish</default>
+        </language>
+        <checkip type="NetworkField">
+            <FieldSeparator>,</FieldSeparator>
+            <asList>Y</asList>
+            <NetMaskAllowed>N</NetMaskAllowed>
+            <WildcardEnabled>N</WildcardEnabled>
+            <ValidationMessage>Please use valid IPv4 addresses.</ValidationMessage>
+            <default>127.0.0.1</default>
+            <Required>N</Required>
+        </checkip>
+        <extracheckports type=".\CustomPortField">
+            <Multiple>Y</Multiple>
+            <ValidationMessage>Please use valid port number.</ValidationMessage>
+            <Required>N</Required>
+        </extracheckports>
+        <transparenthttpsport type="PortField">
+            <Multiple>N</Multiple>
+            <ValidationMessage>Please use valid port number.</ValidationMessage>
+            <default>8443</default>
+            <Required>N</Required>
+        </transparenthttpsport>
+        <icapport type="PortField">
+            <Multiple>N</Multiple>
+            <ValidationMessage>Please use valid port number.</ValidationMessage>
+            <Required>N</Required>
+        </icapport>
+        <proxyip type="NetworkField">
+            <asList>N</asList>
+            <NetMaskAllowed>N</NetMaskAllowed>
+            <WildcardEnabled>N</WildcardEnabled>
+            <ValidationMessage>Please use valid IPv4 address.</ValidationMessage>
+            <Required>N</Required>
+        </proxyip>
+        <proxyport type="PortField">
+            <Multiple>N</Multiple>
+            <ValidationMessage>Please use valid port number.</ValidationMessage>
+            <Required>N</Required>
+        </proxyport>
+        <enablessl type="BooleanField">
+            <Required>N</Required>
+            <default>0</default>
+        </enablessl>
+
+        <filterip type="NetworkField">
+            <FieldSeparator>,</FieldSeparator>
+            <asList>Y</asList>
+            <NetMaskAllowed>N</NetMaskAllowed>
+            <WildcardEnabled>N</WildcardEnabled>
+            <ValidationMessage>Please use valid IPv4 addresses.</ValidationMessage>
+            <Required>N</Required>
+        </filterip>
+        <filterports type=".\CustomPortField">
+            <Multiple>Y</Multiple>
+            <ValidationMessage>Please use valid port number.</ValidationMessage>
+            <default>8080</default>
+            <Required>Y</Required>
+        </filterports>
+
+        <cacertificatepath type="CertificateField">
+            <Type>ca</Type>
+            <ValidationMessage>Please select a valid certificate from the list</ValidationMessage>
+        </cacertificatepath>
+
+
         <loglevel type="OptionField">
             <OptionValues>
                 <none value="0">None</none>
@@ -26,5 +97,10 @@
             <Required>Y</Required>
             <default>2</default>
         </logexceptionhits>
+
+        <mapportstoips type="BooleanField">
+            <Required>N</Required>
+            <default>0</default>
+        </mapportstoips>
     </items>
 </model>
