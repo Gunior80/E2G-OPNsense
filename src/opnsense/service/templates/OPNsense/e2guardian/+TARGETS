@@ -2,3 +2,4 @@ e2guardian.conf:/usr/local/etc/e2guardian/e2guardian.conf
 e2guardian.d:/etc/rc.conf.d/e2guardian
 e2guardianf1.conf:/usr/local/etc/e2guardian/e2guardianf[OPNsense.e2guardian.group.groups.group.%.instance].conf
 ca.pem.id:/usr/local/etc/e2guardian/ca.pem.id
+private.pem.id:/usr/local/etc/e2guardian/private.pem.id
