@@ -92,13 +92,24 @@
 
     <field>
         <id>general.cacertificatepath</id>
-        <label>CA to use</label>
+        <label>CA certificate</label>
         <type>dropdown</type>
         <help><![CDATA[Select a Certificate Authority to use. To create a CA, go to <a href="/system_camanager.php">CA Manager</a>.]]></help>
     </field>
+    <field>
+        <id>general.certprivatekeypath</id>
+        <label>Cert private key</label>
+        <type>dropdown</type>
+        <help>The public / private key pair used by all generated certificates. required if ssl_mitm is enabled. <![CDATA[Select a certificate to use. To create a cert, go to <a href="/system_certmanager.php">CA Manager</a>.]]></help>
+    </field>
 
-
-
+    <field>
+        <id>general.reverseclientiplookups</id>
+        <label>Reverse lookups for IP lists</label>
+        <type>checkbox</type>
+        <advanced>true</advanced>
+        <help>Reverse lookups for banned and exception IP lists. If set to on, e2guardian will look up the forward DNS for the IP of the connecting computer. If a client computer is matched against an IP given in the lists, then the IP will be recorded in any log entries; if forward DNS is successful and a match occurs against a hostname, the hostname will be logged instead. It will reduce searching speed somewhat so unless you have a local DNS server, leave it off.</help>
+    </field>
 
     <field>
         <id>general.loglevel</id>
@@ -114,10 +125,32 @@
         <help>Log if an exception (user, ip, URL, phrase) is matched and so the page gets let through. Can be useful for diagnosing why a site gets through the filter.</help>
     </field>
     <field>
-        <id>general.mapportstoips</id>
-        <label>Map ports to IPs</label>
+        <id>general.logadblocks</id>
+        <label>Enable logging of "ADs"</label>
         <type>checkbox</type>
         <advanced>true</advanced>
-        <help>If enabled map filterports to filterip - number of filterports must then be same as number of filterip. If disabled will listen on all filterports on all filterips.</help>
+        <help>Enable logging of "ADs" category blocks.</help>
     </field>
+    <field>
+        <id>general.showweightedfound</id>
+        <label>Show weighted phrases found</label>
+        <type>checkbox</type>
+        <advanced>true</advanced>
+        <help>If enabled then the phrases found that made up the total which excedes the naughtyness limit will be logged and, if the reporting level is high enough, reported.</help>
+    </field>
+    <field>
+        <id>general.logclienthostnames</id>
+        <label>Log client hostnames</label>
+        <type>checkbox</type>
+        <advanced>true</advanced>
+        <help>Perform reverse lookups on client IPs for successful requests.If set to on, e2guardian will look up the forward DNS for the IP of the connecting computer, and log host names (where available) rather than IPs against requests. This is not dependent on reverseclientiplookups being enabled; however, if it is, enabling this option does not incur any additional forward DNS requests.</help>
+    </field>
+    <field>
+        <id>general.loguseragent</id>
+        <label>Log client User-Agent</label>
+        <type>checkbox</type>
+        <advanced>true</advanced>
+        <help>Enable logging of client User-Agent. Some browsers will cause a *lot* of extra information on each line!</help>
+    </field>
+
 </form>
