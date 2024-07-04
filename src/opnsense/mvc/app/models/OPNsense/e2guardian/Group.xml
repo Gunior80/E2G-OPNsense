@@ -17,6 +17,18 @@
                     <default></default>
                     <Required>Y</Required>
                 </groupname>
+                <clists type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </clists>
             </group>
         </groups>
     </items>

@@ -1,0 +1,24 @@
+<form>
+    <field>
+        <id>clist.enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+        <help>This will enable or disable the list.</help>
+    </field>
+    <field>
+        <id>clist.listtype</id>
+        <label>List type</label>
+        <style>selectpicker</style>
+        <type>dropdown</type>
+    </field>
+    <field>
+        <id>clist.listname</id>
+        <label>List name</label>
+        <type>text</type>
+    </field>
+    <field>
+        <id>clist.listtext</id>
+        <label>List</label>
+        <type>textbox</type>
+    </field>
+</form>

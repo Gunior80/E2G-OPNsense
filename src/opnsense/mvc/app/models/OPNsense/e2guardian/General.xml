@@ -122,6 +122,16 @@
             <default>0</default>
         </loguseragent>
 
+        <contentscanner type="BooleanField">
+            <Required>N</Required>
+            <default>0</default>
+        </contentscanner>
+        <contentscannertimeout type="NumericField">
+            <Required>N</Required>
+            <default>60</default>
+            <MinimumValue>20</MinimumValue>
+            <MaximumValue>600</MaximumValue>
+        </contentscannertimeout>
 
     </items>
 </model>

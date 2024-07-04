@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for E2G_DIR in /var/log/e2guardian /usr/local/etc/e2guardian/generatedcerts; do
+for E2G_DIR in /var/log/e2guardian /usr/local/etc/e2guardian/generatedcerts /var/clamdchroot; do
     mkdir -p ${E2G_DIR}
     chown -R clamav:clamav ${E2G_DIR}
     chmod -R 750 ${E2G_DIR}

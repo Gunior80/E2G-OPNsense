@@ -153,4 +153,18 @@
         <help>Enable logging of client User-Agent. Some browsers will cause a *lot* of extra information on each line!</help>
     </field>
 
+    <field>
+        <id>general.contentscanner</id>
+        <label>Enable Clamav scan</label>
+        <type>checkbox</type>
+        <advanced>true</advanced>
+        <help>The antivirus must be installed and the databases updated.</help>
+    </field>
+    <field>
+        <id>general.contentscannertimeout</id>
+        <label>AV scanner timeout</label>
+        <type>text</type>
+        <advanced>true</advanced>
+        <help>Timeout value to stop processing (eg AV scanning) the file if it takes too long.</help>
+    </field>
 </form>

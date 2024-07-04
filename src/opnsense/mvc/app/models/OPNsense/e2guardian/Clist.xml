@@ -1,0 +1,42 @@
+<model>
+    <mount>//OPNsense/e2guardian/clist</mount>
+    <description>E2guardian custom list configuration</description>
+    <version>0.0.1</version>
+    <items>
+        <clists>
+            <clist type="ArrayField">
+                <enabled type="BooleanField">
+                    <default>1</default>
+                    <Required>Y</Required>
+                </enabled>
+                <listtype type="OptionField">
+                    <OptionValues>
+						<addheaderregexplist value="addheaderregexplist">Add header regexp list</addheaderregexplist>
+						<bannedextensionlist value="bannedextensionlist">Banned extension list</bannedextensionlist>
+						<bannedmimetypelist value="bannedmimetypelist">bannedmimetypelist</bannedmimetypelist>
+						<bannedphraselist value="bannedphraselist">bannedphraselist</bannedphraselist>
+						<bannedregexpurllist value="bannedregexpurllist">bannedregexpurllist</bannedregexpurllist>
+						<bannedsiteiplist value="bannedsiteiplist">bannedsiteiplist</bannedsiteiplist>
+						<bannedsitelist value="bannedsitelist">bannedsitelist</bannedsitelist>
+						<bannedurllist value="bannedurllist">bannedurllist</bannedurllist>
+						<exceptionfilesitelist value="exceptionfilesitelist">exceptionfilesitelist</exceptionfilesitelist>
+						<exceptionfilesiteiplist value="exceptionfilesiteiplist">exceptionfilesiteiplist</exceptionfilesiteiplist>
+						<exceptionphraselist value="exceptionphraselist">exceptionphraselist</exceptionphraselist>
+						<exceptionsitelist value="exceptionsitelist">exceptionsitelist</exceptionsitelist>
+						<weightedphraselist value="weightedphraselist">weightedphraselist</weightedphraselist>
+					</OptionValues>
+					<Required>Y</Required>
+					<default></default>
+                </listtype>
+                <listname type="TextField">
+                    <default></default>
+                    <Required>Y</Required>
+                </listname>
+				<listtext type="TextField">
+                    <default></default>
+                    <Required>Y</Required>
+                </listtext>
+            </clist>
+        </clists>
+    </items>
+</model>

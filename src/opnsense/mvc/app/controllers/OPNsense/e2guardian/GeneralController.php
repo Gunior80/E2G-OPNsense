@@ -10,6 +10,7 @@ class GeneralController extends \OPNsense\Base\IndexController
     {
         $this->view->generalForm = $this->getForm('general');
         $this->view->formDialogEditE2guardianGroup = $this->getForm("dialogEditE2guardianGroup");
+        $this->view->formDialogEditE2guardianClist = $this->getForm("dialogEditE2guardianClist");
         $this->view->pick('OPNsense/e2guardian/general');
     }
 }

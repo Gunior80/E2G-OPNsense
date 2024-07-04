@@ -16,4 +16,10 @@
         <label>Group name</label>
         <type>text</type>
     </field>
+    <field>
+        <id>group.clists</id>
+        <label>Lists</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+    </field>
 </form>
