@@ -1,0 +1,25 @@
+#Add header where url matches
+#
+## to enable restricted YouTube 
+#"(^http://www\.youtube\.com/.*$)"->"YouTube-Restrict: Strict" 
+#"(^http://m\.youtube\.com/.*$)"->"YouTube-Restrict: Strict" 
+#"(^http://youtubei\.googleapis\.com/.*$)"->"YouTube-Restrict: Strict" 
+#"(^http://youtube\.googleapis\.com/.*$)"->"YouTube-Restrict: Strict" 
+#"(^http://www\.youtube-nocookie\.com/.*$)"->"YouTube-Restrict: Strict" 
+#"(^http://www\.youtube\.com$)"->"YouTube-Restrict: Strict" 
+#"(^http://m\.youtube\.com$)"->"YouTube-Restrict: Strict" 
+#"(^http://youtubei\.googleapis\.com$)"->"YouTube-Restrict: Strict" 
+#"(^http://youtube\.googleapis\.com$)"->"YouTube-Restrict: Strict" 
+#"(^http://www\.youtube-nocookie\.com$)"->"YouTube-Restrict: Strict" 
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{% if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%   for group_list in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%     if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%       if group_list.enabled == '1' %}
+
+{%       endif %}
+{%     endif %}
+{%   endfor %}
+{% endif %}
+{% endif %}
