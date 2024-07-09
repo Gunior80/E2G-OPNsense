@@ -1,15 +1,18 @@
-#IP sites in banned ssl list
-#This list is only used for SSL (or CONNECT) requests
-#Unlike the bannedsitelist it overides all other lists
-# so can be used ban an https site white the http is allowed or made an exception
-# 
-#Only list sites where you only want the https site blocked
-#Use bannedsiteiplist for sites where you want both http & https blocked
-# IP site addresses 
-#
-# Single IPs, ranges and subnets can be used,
-# e.g.
-# 192.168.0.1
-# 10.0.0.1-10.0.0.3
-# 10.0.0.0/24
-#
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.clists and group.clists != '' %}
+{%                      for clist in group.clists.split(',') %}
+{%                          set checked_clist = helpers.getUUID(clist) %}
+{%                          if checked_clist.enabled == '1' and checked_clist.listtype == 'bannedsslsiteiplist' %}
+.Include</usr/local/etc/e2guardian/lists/custom/{{ checked_clist.listname }}>
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

@@ -1,10 +1,10 @@
 {% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
 {% if helpers.exists('OPNsense.e2guardian.clist.clists.clist') %}
-{%   for clist in helpers.toList('OPNsense.e2guardian.clist.clists.clist') %}
+{%   for list in helpers.toList('OPNsense.e2guardian.clist.clists.clist') %}
 {%     if TARGET_FILTERS['OPNsense.e2guardian.clist.clists.clist.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.clist.clists.clist'] %}
-{%       if clist.enabled == '1' %}
-#listcategory: "{{ clist.listname }}"
-{{ clist.listtext }}
+{%       if list.enabled == '1' %}
+#listcategory: "{{ list.listname }}"
+{{ list.listtext }}
 {%       endif %}
 {%     endif %}
 {%   endfor %}

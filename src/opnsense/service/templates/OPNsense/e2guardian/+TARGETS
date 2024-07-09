@@ -3,6 +3,9 @@ e2guardian.d:/etc/rc.conf.d/e2guardian
 ca.pem.id:/usr/local/etc/e2guardian/ca.pem.id
 private.pem.id:/usr/local/etc/e2guardian/private.pem.id
 e2guardianf1.conf:/usr/local/etc/e2guardian/e2guardianf[OPNsense.e2guardian.group.groups.group.%.instance].conf
+examplefN.story:/usr/local/etc/e2guardian/examplef[OPNsense.e2guardian.group.groups.group.%.instance].story
+authplugins/ipgroups:/usr/local/etc/e2guardian/lists/authplugins/ipgroups
+authplugins/portgroups:/usr/local/etc/e2guardian/lists/authplugins/portgroups
 listsGroup/addheaderregexplist:/usr/local/etc/e2guardian/lists/group[OPNsense.e2guardian.group.groups.group.%.instance]/addheaderregexplist
 listsGroup/alertcategorylist:/usr/local/etc/e2guardian/lists/group[OPNsense.e2guardian.group.groups.group.%.instance]/alertcategorylist
 listsGroup/allowedtldlist:/usr/local/etc/e2guardian/lists/group[OPNsense.e2guardian.group.groups.group.%.instance]/allowedtldlist
@@ -81,4 +84,4 @@ listsGroup/urlnobypass:/usr/local/etc/e2guardian/lists/group[OPNsense.e2guardian
 listsGroup/urlredirectregexplist:/usr/local/etc/e2guardian/lists/group[OPNsense.e2guardian.group.groups.group.%.instance]/urlredirectregexplist
 listsGroup/urlregexplist:/usr/local/etc/e2guardian/lists/group[OPNsense.e2guardian.group.groups.group.%.instance]/urlregexplist
 listsGroup/weightedphraselist:/usr/local/etc/e2guardian/lists/group[OPNsense.e2guardian.group.groups.group.%.instance]/weightedphraselist
-custom.list:/usr/local/etc/e2guardian/lists/custom/[OPNsense.e2guardian.clist.clists.clist.%.listtype]-[OPNsense.e2guardian.clist.clists.clist.%.listname]
+custom.list:/usr/local/etc/e2guardian/lists/custom/[OPNsense.e2guardian.clist.clists.clist.%.listname]

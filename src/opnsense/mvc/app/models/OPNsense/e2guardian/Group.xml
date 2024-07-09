@@ -17,6 +17,22 @@
                     <default></default>
                     <Required>Y</Required>
                 </groupname>
+
+                <authport type=".\CustomPortField">
+                    <Multiple>Y</Multiple>
+                    <ValidationMessage>Please use valid port number.</ValidationMessage>
+                    <Required>N</Required>
+                </authport>
+
+                <authip type="NetworkField">
+                    <FieldSeparator>,</FieldSeparator>
+                    <asList>Y</asList>
+                    <NetMaskAllowed>Y</NetMaskAllowed>
+                    <WildcardEnabled>N</WildcardEnabled>
+                    <ValidationMessage>Please use valid IPv4 addresses.</ValidationMessage>
+                    <Required>N</Required>
+                </authip>
+
                 <clists type="ModelRelationField">
                     <Model>
                         <template>
@@ -24,11 +40,33 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
-
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
                 </clists>
+                <naughtynesslimit type="IntegerField">
+                    <Required>Y</Required>
+                    <default>60</default>
+                    <MinimumValue>1</MinimumValue>
+                </naughtynesslimit>
+
+                <sslmitm type="BooleanField">
+                    <Required>N</Required>
+                    <default>0</default>
+                </sslmitm>
+                <mitmcheckcert type="BooleanField">
+                    <Required>N</Required>
+                    <default>1</default>
+                </mitmcheckcert>
+                <automitm type="BooleanField">
+                    <Required>N</Required>
+                    <default>1</default>
+                </automitm>
+
+                <deepurlanalysis type="BooleanField">
+                    <Required>N</Required>
+                    <default>0</default>
+                </deepurlanalysis>
             </group>
         </groups>
     </items>

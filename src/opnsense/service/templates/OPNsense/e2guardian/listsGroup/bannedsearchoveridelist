@@ -1,0 +1,18 @@
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.clists and group.clists != '' %}
+{%                      for clist in group.clists.split(',') %}
+{%                          set checked_clist = helpers.getUUID(clist) %}
+{%                          if checked_clist.enabled == '1' and checked_clist.listtype == 'bannedsearchoveridelist' %}
+.Include</usr/local/etc/e2guardian/lists/custom/{{ checked_clist.listname }}>
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}
