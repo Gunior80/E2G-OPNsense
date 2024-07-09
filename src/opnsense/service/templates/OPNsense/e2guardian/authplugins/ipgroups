@@ -1,0 +1,26 @@
+# IP-Group list
+# Used by the IP-based auth plugin to assign IP addresses to filter groups.
+#
+# Examples:
+# Straight IP matching:
+#192.168.0.1 = filter1
+# Subnet matching:
+#192.168.1.0/255.255.255.0 = filter1
+# Range matching:
+#192.168.1.0-192.168.1.255 = filter1
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{% if OPNsense.e2guardian.general.authmethod == '2' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if group.enabled == '1' %}
+{%              if group.authip|default('') != '' %}
+{%                  for ip in group.authip.split(',') %}
+{{ ip }} = filter{{group.instance}}
+{%                  endfor %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}
+{% endif %}

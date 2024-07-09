@@ -8,7 +8,7 @@
     <field>
         <id>group.instance</id>
         <label>Group number</label>
-        <type>text</type>
+        <type>info</type>
         <help>Unique number for group.</help>
     </field>
     <field>
@@ -16,10 +16,59 @@
         <label>Group name</label>
         <type>text</type>
     </field>
+
+    <field>
+        <id>group.authport</id>
+        <label>Auth port</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Maps IP Ports to this filter group.</help>
+    </field>
+    <field>
+        <id>group.authip</id>
+        <label>Auth IP</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help>Maps client IPs to this filter group.</help>
+    </field>
+
     <field>
         <id>group.clists</id>
         <label>Lists</label>
         <type>select_multiple</type>
         <style>tokenize</style>
+    </field>
+
+    <field>
+        <id>group.naughtynesslimit</id>
+        <label>Naughtyness limit</label>
+        <type>text</type>
+        <help>This the limit over which the page will be blocked.  Each weighted phrase is given a value either positive or negative and the values added up.  Phrases to do with good subjects will have negative values, and bad subjects will have positive values.  See the weightedphraselist file for examples. As a guide: 60 is for young children,  100 for old children,  160 for young adults.</help>
+    </field>
+
+    <field>
+        <id>group.sslmitm</id>
+        <label>SSL man in the middle</label>
+        <type>checkbox</type>
+        <help>Forge ssl certificates for all non-exception sites, decrypt the data then re encrypt it using a different private key. Used to filter ssl sites</help>
+    </field>
+    <field>
+        <id>group.mitmcheckcert</id>
+        <label>Enable MITM site certificate checking</label>
+        <type>checkbox</type>
+        <help>Ignored if SSL man in the middle is off.</help>
+    </field>
+    <field>
+        <id>group.automitm</id>
+        <label>Enable SSL support</label>
+        <type>checkbox</type>
+        <help>Auto switch to MITM with upstream connection error or to deliver block page ignored if  sslmitm is off. To revert to v4 type behavour switch this off. Default is 'on'</help>
+    </field>
+    <field>
+        <id>group.deepurlanalysis</id>
+        <label>Enable Deep URL Analysis</label>
+        <type>checkbox</type>
+        <help>When enabled, E2 looks for URLs within URLs, checking against the bannedsitelist and bannedurllist. This can be used, for example, to block images originating from banned sites from appearing in Google Images search results, as the original URLs are embedded in the thumbnail GET requests.</help>
     </field>
 </form>

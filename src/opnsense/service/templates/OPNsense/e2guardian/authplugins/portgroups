@@ -1,0 +1,24 @@
+# Port-Group list
+# Used by the Port-based auth plugin to assign Ports to filter groups.
+#
+# Note that ports MUST be entered in ascending order
+#
+# Examples:
+#8080 = filter1
+#8081 = filter2
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{% if OPNsense.e2guardian.general.authmethod == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if group.enabled == '1' %}
+{%              if group.authport|default('') != '' %}
+{%                  for port in group.authport.split(',') %}
+{{ port }} = filter{{group.instance}}
+{%                  endfor %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}
+{% endif %}
