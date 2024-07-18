@@ -14,7 +14,6 @@
                     <MinimumValue>1</MinimumValue>
                 </instance>
                 <groupname type="TextField">
-                    <default></default>
                     <Required>Y</Required>
                 </groupname>
 
@@ -32,18 +31,6 @@
                     <ValidationMessage>Please use valid IPv4 addresses.</ValidationMessage>
                     <Required>N</Required>
                 </authip>
-
-                <clists type="ModelRelationField">
-                    <Model>
-                        <template>
-                            <source>OPNsense.e2guardian.Clist</source>
-                            <items>clists.clist</items>
-                            <display>listname</display>
-                            <display_format>%s</display_format>
-                        </template>
-                    </Model>
-                    <Multiple>Y</Multiple>
-                </clists>
                 <naughtynesslimit type="IntegerField">
                     <Required>Y</Required>
                     <default>60</default>
@@ -67,6 +54,97 @@
                     <Required>N</Required>
                     <default>0</default>
                 </deepurlanalysis>
+
+                <bannedsiteiplist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedsiteiplist>
+                <exceptsiteiplist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptsiteiplist>
+                <nocheckcertsiteiplist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </nocheckcertsiteiplist>
+
+                <bannedsitelist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedsitelist>
+                <exceptsitelist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptsitelist>
+                <nocheckcertsitelist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </nocheckcertsitelist>
+
+                <bannedurllist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedurllist>
+                <excepturllist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </excepturllist>
             </group>
         </groups>
     </items>

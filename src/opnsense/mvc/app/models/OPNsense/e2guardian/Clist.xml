@@ -11,29 +11,21 @@
                 </enabled>
                 <listtype type="OptionField">
                     <OptionValues>
-						<addheaderregexplist value="addheaderregexplist">Add header regexp list</addheaderregexplist>
-						<bannedextensionlist value="bannedextensionlist">Banned extension list</bannedextensionlist>
-						<bannedmimetypelist value="bannedmimetypelist">bannedmimetypelist</bannedmimetypelist>
-						<bannedphraselist value="bannedphraselist">bannedphraselist</bannedphraselist>
-						<bannedregexpurllist value="bannedregexpurllist">bannedregexpurllist</bannedregexpurllist>
-						<bannedsiteiplist value="bannedsiteiplist">bannedsiteiplist</bannedsiteiplist>
-						<bannedsitelist value="bannedsitelist">bannedsitelist</bannedsitelist>
-						<bannedurllist value="bannedurllist">bannedurllist</bannedurllist>
-						<exceptionfilesitelist value="exceptionfilesitelist">exceptionfilesitelist</exceptionfilesitelist>
-						<exceptionfilesiteiplist value="exceptionfilesiteiplist">exceptionfilesiteiplist</exceptionfilesiteiplist>
-						<exceptionphraselist value="exceptionphraselist">exceptionphraselist</exceptionphraselist>
-						<exceptionsitelist value="exceptionsitelist">exceptionsitelist</exceptionsitelist>
-						<weightedphraselist value="weightedphraselist">weightedphraselist</weightedphraselist>
+						<siteiplist value="siteiplist">Site IP list</siteiplist>
+						<sitelist value="sitelist">Site list</sitelist>
+						<urllist value="urllist">Url list</urllist>
+                        <searchlist value="searchlist">Search list</searchlist>
+                        <urlregexplist value="regexplist">Regexp list</urlregexplist>
 					</OptionValues>
 					<Required>Y</Required>
-					<default></default>
                 </listtype>
                 <listname type="TextField">
-                    <default></default>
                     <Required>Y</Required>
                 </listname>
+                <visiblename type="TextField">
+                    <Required>Y</Required>
+                </visiblename>
 				<listtext type="TextField">
-                    <default></default>
                     <Required>Y</Required>
                 </listtext>
             </clist>

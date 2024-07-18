@@ -38,12 +38,12 @@
 
 # The following banned phraselists enable Website Content Labeling systems.  These are enabled by default, but may also be activated using phraselists.  
 
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/safelabel/banned>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/safelabel/banned>
 #.Include</usr/local/etc/e2guardian/lists/oldphraselists/rta/banned_portuguese>
 
 # The following banned oldphraselists are included in the default DG distribution.
 
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/banned>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/banned>
 ##.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/banned_portuguese>
 
 #.Include</usr/local/etc/e2guardian/lists/oldphraselists/illegaldrugs/banned>

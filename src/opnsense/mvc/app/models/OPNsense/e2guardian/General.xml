@@ -10,7 +10,7 @@
         <language type="OptionField">
             <OptionValues>
                 <eng value="ukenglish">English</eng>
-                <rus value="russian">Русский</rus>
+                <rus value="russian-1251">Русский</rus>
             </OptionValues>
             <Required>Y</Required>
             <default>ukenglish</default>

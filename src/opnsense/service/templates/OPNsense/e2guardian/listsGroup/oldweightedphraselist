@@ -49,33 +49,33 @@
 ##.Include</usr/local/etc/e2guardian/lists/oldphraselists/safelabel/weighted>
 
 #Good Phrases (to allow medical, education, news and other good sites)
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_news>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_danish>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_dutch>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_malay>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_polish>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_portuguese>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_swedish>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_news>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_danish>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_dutch>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_malay>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_polish>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_portuguese>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/goodphrases/weighted_general_swedish>
 
 #Pornography
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_chinese> #ALPHA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_danish> #ALPHA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_dutch> #BETA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_french>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_german>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_italian>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_chinese> #ALPHA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_danish> #ALPHA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_dutch> #BETA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_french>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_german>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_italian>
 #.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_japanese> #ALPHA# #Disabled due to overblocking#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_malay> #BETA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_norwegian> #BETA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_polish>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_portuguese>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_russian> #BETA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_russian_utf8> #BETA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_spanish> #ALPHA#
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_swedish>
-.Include</usr/local/etc/e2guardian/lists/oldphraselists/nudism/weighted>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_malay> #BETA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_norwegian> #BETA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_polish>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_portuguese>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_russian> #BETA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_russian_utf8> #BETA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_spanish> #ALPHA#
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/pornography/weighted_swedish>
+#.Include</usr/local/etc/e2guardian/lists/oldphraselists/nudism/weighted>
 
 #Bad Words - swearing
 .Include</usr/local/etc/e2guardian/lists/oldphraselists/badwords/weighted_dutch> 

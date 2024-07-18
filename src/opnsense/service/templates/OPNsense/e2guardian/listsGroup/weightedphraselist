@@ -41,8 +41,8 @@
 ##.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/safelabel/weighted>
 
 #Good Phrases (to allow medical, education, news and other good sites)
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/goodphrases/weighted>
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/goodphrases/weighted_news>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/goodphrases/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/goodphrases/weighted_news>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/danish/goodphrases/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/dutch/goodphrases/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/malay/goodphrases/weighted>
@@ -51,7 +51,7 @@
 #.Include</usr/local/etc/e2guardian/lists/phraselists/swedish/goodphrases/weighted>
 
 #Pornography
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/pornography/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/pornography/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/chinesebig5/pornography/weighted> #ALPHA#
 #.Include</usr/local/etc/e2guardian/lists/phraselists/chinesegb2312/pornography/weighted> #ALPHA#
 #.Include</usr/local/etc/e2guardian/lists/phraselists/danish/pornography/weighted> #ALPHA#
@@ -73,7 +73,7 @@
 #.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/nudism/weighted>
 
 #Bad Words - swearing
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/badwords/weighted> 
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/badwords/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/dutch/badwords/weighted> 
 #.Include</usr/local/etc/e2guardian/lists/phraselists/french/badwords/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/german/badwords/weighted> #ALPHA#
@@ -86,13 +86,13 @@
 #.Include</usr/local/etc/e2guardian/lists/phraselists/portuguese/illegaldrugs/weighted>
 
 #Violence and intolerance
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/intolerance/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/intolerance/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/portuguese/intolerance/weighted>
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/gore/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/gore/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/portuguese/gore/weighted>
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/violence/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/violence/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/portuguese/violence/weighted>
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/weapons/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/weapons/weighted>
 #.Include</usr/local/etc/e2guardian/lists/phraselists/portuguese/weapons/weighted>
 
 #Chat
@@ -110,8 +110,8 @@
 #.Include</usr/local/etc/e2guardian/lists/phraselists/portuguese/personals/weighted>
 
 #System Management and Security
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/proxies/weighted>
-.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/warezhacking/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/proxies/weighted>
+#.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/warezhacking/weighted>
 
 
 

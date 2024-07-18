@@ -17,8 +17,15 @@
         <type>text</type>
     </field>
     <field>
+        <id>clist.visiblename</id>
+        <label>Visible list name</label>
+        <type>text</type>
+        <help>List name for block page.</help>
+    </field>
+    <field>
         <id>clist.listtext</id>
         <label>List</label>
         <type>textbox</type>
+        <help>One record per line.</help>
     </field>
 </form>

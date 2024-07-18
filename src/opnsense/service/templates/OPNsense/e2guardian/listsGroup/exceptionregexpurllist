@@ -11,5 +11,5 @@
 
 # Allow Facebook plugin applications like
 # http://apps.facebook.com/neighborhoods/Setup.aspx and others.
-mock_ajax_proxy.php
+#mock_ajax_proxy.php
 

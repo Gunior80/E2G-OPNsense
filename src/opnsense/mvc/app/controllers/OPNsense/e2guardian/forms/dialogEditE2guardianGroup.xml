@@ -1,9 +1,13 @@
 <form>
     <field>
+        <type>header</type>
+        <label>General Settings</label>
+    </field>
+    <field>
         <id>group.enabled</id>
         <label>Enabled</label>
         <type>checkbox</type>
-        <help>This will enable or disable the group.</help>
+        <help>This will enable or disable the group filters.</help>
     </field>
     <field>
         <id>group.instance</id>
@@ -32,14 +36,6 @@
         <allownew>true</allownew>
         <help>Maps client IPs to this filter group.</help>
     </field>
-
-    <field>
-        <id>group.clists</id>
-        <label>Lists</label>
-        <type>select_multiple</type>
-        <style>tokenize</style>
-    </field>
-
     <field>
         <id>group.naughtynesslimit</id>
         <label>Naughtyness limit</label>
@@ -71,4 +67,79 @@
         <type>checkbox</type>
         <help>When enabled, E2 looks for URLs within URLs, checking against the bannedsitelist and bannedurllist. This can be used, for example, to block images originating from banned sites from appearing in Google Images search results, as the original URLs are embedded in the thumbnail GET requests.</help>
     </field>
+
+    <field>
+        <type>header</type>
+        <label>IPs lists</label>
+    </field>
+    <field>
+        <id>group.bannedsiteiplist</id>
+        <label>Banned site IP lists</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>IP sites in banned list. Examples for list: 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
+    </field>
+    <field>
+        <id>group.exceptsiteiplist</id>
+        <label>Exception site IP lists</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>IP sites in exception list. Examples for list: 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
+    </field>
+    <field>
+        <id>group.nocheckcertsiteiplist</id>
+        <label>Do not check ssl cert for IP</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Ignored if MITM check cert is off. Examples for list: 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
+    </field>
+
+    <field>
+        <type>header</type>
+        <label>Domains lists</label>
+    </field>
+    <field>
+        <id>group.bannedsitelist</id>
+        <label>Banned site lists</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Domains in banned list</help>
+    </field>
+    <field>
+        <id>group.exceptsitelist</id>
+        <label>Exception site lists</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Domains in exception list</help>
+    </field>
+    <field>
+        <id>group.nocheckcertsitelist</id>
+        <label>Do not check ssl cert for sites/domains</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Ignored if MITM check cert is off. Examples for list: 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
+    </field>
+
+    <field>
+        <type>header</type>
+        <label>URLs lists</label>
+    </field>
+    <field>
+        <id>group.bannedurllist</id>
+        <label>Banned URLs lists</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>URLs in banned list</help>
+    </field>
+    <field>
+        <id>group.excepturllist</id>
+        <label>Exception URLs lists</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>URLs in exception list</help>
+    </field>
+
+
+
+
 </form>
