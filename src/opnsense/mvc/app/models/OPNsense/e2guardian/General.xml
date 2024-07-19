@@ -9,8 +9,29 @@
         </enabled>
         <language type="OptionField">
             <OptionValues>
+                <bra value="ptbrazilian">Brazilian</bra>
+                <bul value="bulgarian">Bulgarian</bul>
+                <chi value="chinesebig5">Chinese</chi>
+                <cze value="czech">Czech</cze>
+                <dan value="danish">Danish</dan>
+                <dut value="dutch">Dutch</dut>
                 <eng value="ukenglish">English</eng>
-                <rus value="russian-1251">Русский</rus>
+                <fre value="french">French</fre>
+                <ger value="german">German</ger>
+                <heb value="hebrew">Hebrew</heb>
+                <hun value="hungarian">Hungarian</hun>
+                <indo value="indonesian">Indonesian</indo>
+                <ita value="italian">Italian</ita>
+                <jap value="japanese">Japanese</jap>
+                <lit value="lithuanian">Lithuanian</lit>
+                <mal value="malay">Malay</mal>
+                <pol value="polish">Polish</pol>
+                <por value="portuguese">Portuguese</por>
+                <rus value="russian-1251">Russian</rus>
+                <slo value="slovak">Slovak</slo>
+                <spa value="spanish">Spanish</spa>
+                <swe value="swedish">Swedish</swe>
+                <tur value="turkish">Turkish</tur>
             </OptionValues>
             <Required>Y</Required>
             <default>ukenglish</default>
