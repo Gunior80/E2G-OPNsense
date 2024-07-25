@@ -1,0 +1,586 @@
+diff -ruN e2guardian.bak/Makefile e2guardian/Makefile
+--- e2guardian.bak/Makefile	2024-06-08 11:22:24.706037000 +0000
++++ e2guardian/Makefile	2024-06-24 15:30:07.284522000 +0000
+@@ -1,7 +1,7 @@
+ PORTNAME=	e2guardian
+-PORTVERSION=	5.3.4
++PORTVERSION=	5.5.5r
+ DISTVERSIONPREFIX=	v
+-PORTREVISION=	3
++PORTREVISION=	0
+ CATEGORIES=	www
+ 
+ MAINTAINER=	marcellocoutinho@gmail.com
+@@ -22,11 +22,12 @@
+ GNU_CONFIGURE=	yes
+ GNU_CONFIGURE_MANPREFIX=${PREFIX}/share
+ CONFIGURE_ARGS=	--with-logdir=/var/log \
+-		--with-piddir=/var/run
++		--with-piddir=/var/run --prefix=/usr/local \
++		--sysconfdir=/usr/local/etc 
+ 
+ OPTIONS_RADIO=	AV
+ OPTIONS_RADIO_AV=AVAST CLAMD KAV
+-OPTIONS_DEFINE=	CLISCAN ICAP NTLM DNS EMAIL DEBUG DOCS SSL_MITM
++OPTIONS_DEFINE=	CLISCAN ICAP DNS EMAIL DEBUG DOCS 
+ OPTIONS_DEFAULT=CLAMD DNS
+ OPTIONS_SUB=	yes
+ 
+@@ -35,12 +36,11 @@
+ ICAP_DESC=	Enable ICAP AV content scanner support
+ KAV_DESC=	Enable Kaspersky AV support
+ AVAST_DESC=	Enable AvastD content scanner
+-NTLM_DESC=	Include NTLM authentication plugin
+ DNS_DESC=	Include DNS authetication plugin
+ EMAIL_DESC=	Enable e-mail reporting support
+ DEBUG_DESC=	Enable debug build mode
+-SSL_MITM_DESC=	Enable support for the SSL MITM plugin
+ 
++
+ CONFDIR=	${PREFIX}/etc/e2guardian
+ 
+ CLISCAN_CONFIGURE_ENABLE=	commandline
+@@ -49,17 +49,12 @@
+ ICAP_CONFIGURE_ENABLE=		icap
+ KAV_CONFIGURE_ENABLE=		kavd
+ AVAST_CONFIGURE_ENABLE=		avastd
+-NTLM_CONFIGURE_ENABLE=		ntlm
+-NTLM_USES=			iconv
+ DNS_CONFIGURE_ENABLE=		dnsauth
+ EMAIL_CONFIGURE_ENABLE=		email
+-DEBUG_CONFIGURE_OFF=		--with-dgdebug=off --with-newdebug=off
+-DEBUG_CONFIGURE_ON=		--with-dgdebug=on --with-newdebug=on
+-SSL_MITM_USES=			ssl
+-SSL_MITM_CONFIGURE_ENABLE=	sslmitm
+-SSL_MITM_CONFIGURE_ENV=		OPENSSL_LIBS="-lssl -lcrypto" \
+-				OPENSSL_CFLAGS="-I${OPENSSLINC} -L${OPENSSLLIB}"
++DEBUG_CONFIGURE_OFF=		--with-debug_high=off --with-debug_low=off
++DEBUG_CONFIGURE_ON=		--with-debug_high=on --with-debug_low=on
+ 
++
+ .include <bsd.port.options.mk>
+ 
+ .if ${PORT_OPTIONS:MCLAMD} || ${PORT_OPTIONS:MICAP} || \
+@@ -80,18 +75,15 @@
+ 		${STAGEDIR}${ETCDIR}/lists/authplugins/ipgroups.sample
+ 	@${MV} ${STAGEDIR}${ETCDIR}/lists/authplugins/portgroups \
+ 		${STAGEDIR}${ETCDIR}/lists/authplugins/portgroups.sample
+-	@${MV} ${STAGEDIR}${ETCDIR}/lists/bannedrooms/default \
+-		${STAGEDIR}${ETCDIR}/lists/bannedrooms/default.sample
+-	@${MV} ${STAGEDIR}${ETCDIR}/lists/domainsnobypass \
+-		${STAGEDIR}${ETCDIR}/lists/domainsnobypass.sample
+-	@${MV} ${STAGEDIR}${ETCDIR}/lists/ipnobypass \
+-		${STAGEDIR}${ETCDIR}/lists/ipnobypass.sample
+-	@${MV} ${STAGEDIR}${ETCDIR}/lists/urlnobypass \
+-		${STAGEDIR}${ETCDIR}/lists/urlnobypass.sample
+-	@${MKDIR} ${STAGEDIR}${ETCDIR}/lists/contentscanners
+-	@${MV} ${STAGEDIR}${ETCDIR}/lists/exceptionvirusextensionlist.sample \
+-		${STAGEDIR}${ETCDIR}/lists/contentscanners/
+-	@${MV} ${STAGEDIR}${ETCDIR}/lists/exceptionvirussiteiplist.sample \
+-		${STAGEDIR}${ETCDIR}/lists/contentscanners/
++	@${MV} ${STAGEDIR}${ETCDIR}/lists/rooms/default \
++		${STAGEDIR}${ETCDIR}/lists/rooms/default.sample
++	@${MV} ${STAGEDIR}${ETCDIR}/lists/example.group/domainsnobypass \
++		${STAGEDIR}${ETCDIR}/lists/example.group/domainsnobypass.sample
++	@${MV} ${STAGEDIR}${ETCDIR}/lists/example.group/ipnobypass \
++		${STAGEDIR}${ETCDIR}/lists/example.group/ipnobypass.sample
++	@${MV} ${STAGEDIR}${ETCDIR}/lists/example.group/urlnobypass \
++		${STAGEDIR}${ETCDIR}/lists/example.group/urlnobypass.sample
++
++	
+ 
+ .include <bsd.port.mk>
+diff -ruN e2guardian.bak/distinfo e2guardian/distinfo
+--- e2guardian.bak/distinfo	2024-06-08 11:22:24.707217000 +0000
++++ e2guardian/distinfo	2024-06-23 23:29:23.371133000 +0000
+@@ -1,3 +1,3 @@
+-TIMESTAMP = 1581375515
+-SHA256 (e2guardian-e2guardian-v5.3.4_GH0.tar.gz) = 09a107fd791be92edcb0837b8fdcad626928162d05e31ae53fa8fe3adb7d5652
+-SIZE (e2guardian-e2guardian-v5.3.4_GH0.tar.gz) = 2083057
++TIMESTAMP = 1717849127
++SHA256 (e2guardian-e2guardian-v5.5.5r_GH0.tar.gz) = 246eca1ed655aaeaaee30fec3338233da04b1640978b347f80641553dc823f98
++SIZE (e2guardian-e2guardian-v5.5.5r_GH0.tar.gz) = 2149828
+diff -ruN e2guardian.bak/files/e2guardian.in e2guardian/files/e2guardian.in
+--- e2guardian.bak/files/e2guardian.in	2024-06-08 11:22:24.710525000 +0000
++++ e2guardian/files/e2guardian.in	2024-06-24 16:11:37.773028000 +0000
+@@ -28,11 +28,11 @@
+ reload_cmd="e2guardian_reload_cmd"
+ extra_commands="reload"
+ 
+-command_args="-p $pidfile -f $e2guardian_config $e2guardian_flags"
+ 
++
+ e2guardian_reload_cmd() {
+ 	if [ -f "${pidfile}" ]; then
+-		${command} -g ${command_args}
++		${command} -g 
+ 		echo "Reloading ${name}."
+ 	fi
+ }
+diff -ruN e2guardian.bak/files/patch-configs_authplugins_Makefile.am e2guardian/files/patch-configs_authplugins_Makefile.am
+--- e2guardian.bak/files/patch-configs_authplugins_Makefile.am	2024-06-08 11:22:24.712883000 +0000
++++ e2guardian/files/patch-configs_authplugins_Makefile.am	2024-06-24 01:50:21.942406000 +0000
+@@ -1,11 +1,11 @@
+---- configs/authplugins/Makefile.am.orig	2018-10-16 12:21:11 UTC
+-+++ configs/authplugins/Makefile.am
+-@@ -4,7 +4,7 @@ DGDATADIR = $(DGCONFDIR)/authplugins
++--- configs/authplugins/Makefile.am.orig	2024-06-24 01:30:33.429813000 +0000
+++++ configs/authplugins/Makefile.am	2024-06-24 01:35:42.219651000 +0000
++@@ -6,7 +6,7 @@
+  
+- SUBDIRS = .
++ FLISTS = ident.conf ip.conf \
++ 	 port.conf pf-basic.conf  \
++-	 BearerBasic.conf
+++	 BearerBasic.conf proxy-header.conf
+  
+--FLISTS = proxy-basic.conf ident.conf ip.conf proxy-digest.conf \
+-+FLISTS = proxy-basic.conf ident.conf ip.conf proxy-digest.conf proxy-header.conf\
+- 	 port.conf 
+  
+- if ENABLE_NTLM
++ if PRT_DNSAUTH
+diff -ruN e2guardian.bak/files/patch-configure.ac e2guardian/files/patch-configure.ac
+--- e2guardian.bak/files/patch-configure.ac	2024-06-08 11:22:24.711800000 +0000
++++ e2guardian/files/patch-configure.ac	2024-06-24 15:13:31.876435000 +0000
+@@ -1,14 +1,6 @@
+---- configure.ac.orig	2020-01-27 08:24:39 UTC
+-+++ configure.ac
+-@@ -6,7 +6,6 @@ AC_DEFINE([FD_SETSIZE_OVERIDE],[""],[Define to allow D
+- 
+- AC_PREREQ(2.57)
+- AC_INIT(e2guardian, 5.3.4)
+--AM_INIT_AUTOMAKE
+- AC_CONFIG_HEADERS([dgconfig.h])
+- AC_CONFIG_MACRO_DIR([m4])
+- AM_INIT_AUTOMAKE([subdir-objects])
+-@@ -617,7 +616,6 @@ else
++--- configure.ac.orig	2024-04-29 10:44:59.000000000 +0000
+++++ configure.ac	2024-06-24 15:04:00.457516000 +0000
++@@ -480,7 +480,6 @@
+  	AC_MSG_RESULT(yes)
+  	dnsauth=true
+  	DNSAUTHSUPPORT=""
+diff -ruN e2guardian.bak/pkg-plist e2guardian/pkg-plist
+--- e2guardian.bak/pkg-plist	2024-06-08 11:22:24.708395000 +0000
++++ e2guardian/pkg-plist	2024-06-24 11:39:06.809922000 +0000
+@@ -1,187 +1,229 @@
++@sample %%ETCDIR%%/authplugins/BearerBasic.conf.sample
+ %%DNS%%@sample %%ETCDIR%%/authplugins/dnsauth.conf.sample
+ @sample %%ETCDIR%%/authplugins/ident.conf.sample
+ @sample %%ETCDIR%%/authplugins/ip.conf.sample
++@sample %%ETCDIR%%/authplugins/pf-basic.conf.sample
+ @sample %%ETCDIR%%/authplugins/port.conf.sample
+-@sample %%ETCDIR%%/authplugins/proxy-basic.conf.sample
+-@sample %%ETCDIR%%/authplugins/proxy-digest.conf.sample
+ %%DNS%%@sample %%ETCDIR%%/authplugins/proxy-header.conf.sample
+-%%NTLM%%@sample %%ETCDIR%%/authplugins/proxy-ntlm.conf.sample
++%%AVAST%%@sample %%ETCDIR%%/contentscanners/avastdscan.conf.sample
+ %%CLAMD%%@sample %%ETCDIR%%/contentscanners/clamdscan.conf.sample
+-%%ICAP%%@sample %%ETCDIR%%/contentscanners/icapscan.conf.sample
+ %%CLISCAN%%@sample %%ETCDIR%%/contentscanners/commandlinescan.conf.sample
++%%ICAP%%@sample %%ETCDIR%%/contentscanners/icapscan.conf.sample
+ %%KAV%%@sample %%ETCDIR%%/contentscanners/kavdscan.conf.sample
+-%%AVAST%%@sample %%ETCDIR%%/contentscanners/avastdscan.conf.sample
+ @sample %%ETCDIR%%/downloadmanagers/default.conf.sample
++@sample %%ETCDIR%%/common.story.sample
+ @sample %%ETCDIR%%/e2guardian.conf.sample
+ @sample %%ETCDIR%%/e2guardianf1.conf.sample
+-@sample %%ETCDIR%%/common.story.sample
+ @sample %%ETCDIR%%/examplef1.story.sample
+ @sample %%ETCDIR%%/preauth.story.sample
+ @sample %%ETCDIR%%/site.story.sample
+-@sample %%ETCDIR%%/lists/addheaderregexplist.sample
+-%%DNS%%@sample %%ETCDIR%%/lists/authexceptionsitelist.sample
+-%%DNS%%@sample %%ETCDIR%%/lists/authexceptionurllist.sample
+-%%DNS%%@sample %%ETCDIR%%/lists/authexceptioniplist.sample
+-%%DNS%%@sample %%ETCDIR%%/lists/authexceptionsiteiplist.sample
++@sample %%ETCDIR%%/lists/authplugins/filtergroupslist.sample
+ @sample %%ETCDIR%%/lists/authplugins/ipgroups.sample
+ @sample %%ETCDIR%%/lists/authplugins/portgroups.sample
+-@sample %%ETCDIR%%/lists/bannedclientlist.sample
+-@sample %%ETCDIR%%/lists/bannedextensionlist.sample
+-@sample %%ETCDIR%%/lists/bannediplist.sample
+-@sample %%ETCDIR%%/lists/bannedmimetypelist.sample
+-@sample %%ETCDIR%%/lists/bannedphraselist.sample
+-@sample %%ETCDIR%%/lists/bannedregexpheaderlist.sample
+-@sample %%ETCDIR%%/lists/bannedregexpurllist.sample
+-@sample %%ETCDIR%%/lists/bannedregexpuseragentlist.sample
+-@sample %%ETCDIR%%/lists/bannedrooms/default.sample
+-@sample %%ETCDIR%%/lists/bannedsearchlist.sample
+-@sample %%ETCDIR%%/lists/bannedsearchoveridelist.sample
+-@sample %%ETCDIR%%/lists/bannedsiteiplist.sample
+-@sample %%ETCDIR%%/lists/bannedsitelist.sample
+-@sample %%ETCDIR%%/lists/bannedsslsiteiplist.sample
+-@sample %%ETCDIR%%/lists/bannedsslsitelist.sample
+-@sample %%ETCDIR%%/lists/bannedurllist.sample
+-@sample %%ETCDIR%%/lists/contentregexplist.sample
++%%DNS%%@sample %%ETCDIR%%/lists/common/authexceptioniplist.sample
++%%DNS%%@sample %%ETCDIR%%/lists/common/authexceptionsitelist.sample
++%%DNS%%@sample %%ETCDIR%%/lists/common/authexceptionurllist.sample
++@sample %%ETCDIR%%/lists/common/bannedclientlist.sample
++@sample %%ETCDIR%%/lists/common/bannediplist.sample
++@sample %%ETCDIR%%/lists/common/browserregexplist.sample
++@sample %%ETCDIR%%/lists/common/embededreferersiteiplist.sample
++@sample %%ETCDIR%%/lists/common/embededreferersitelist.sample
++@sample %%ETCDIR%%/lists/common/embededrefererurllist.sample
++@sample %%ETCDIR%%/lists/common/exceptionclientlist.sample
++@sample %%ETCDIR%%/lists/common/exceptioniplist.sample
++@sample %%ETCDIR%%/lists/common/nologextensionlist.sample
++@sample %%ETCDIR%%/lists/common/nologregexpurllist.sample
++@sample %%ETCDIR%%/lists/common/nologsiteiplist.sample
++@sample %%ETCDIR%%/lists/common/nologsitelist.sample
++@sample %%ETCDIR%%/lists/common/nologurllist.sample
++@sample %%ETCDIR%%/lists/common/nomitmsiteiplist.sample
++@sample %%ETCDIR%%/lists/common/nomitmsitelist.sample
++%%ETCDIR%%/lists/common/README
++@sample %%ETCDIR%%/lists/common/searchexceptionregexplist.sample
++@sample %%ETCDIR%%/lists/common/searchregexplist.sample
+ %%SCANNERS%%@sample %%ETCDIR%%/lists/contentscanners/exceptionvirusextensionlist.sample
+ %%SCANNERS%%@sample %%ETCDIR%%/lists/contentscanners/exceptionvirusmimetypelist.sample
+-%%SCANNERS%%@sample %%ETCDIR%%/lists/contentscanners/exceptionvirussiteiplist.sample
+ %%SCANNERS%%@sample %%ETCDIR%%/lists/contentscanners/exceptionvirussitelist.sample
+ %%SCANNERS%%@sample %%ETCDIR%%/lists/contentscanners/exceptionvirusurllist.sample
+-@sample %%ETCDIR%%/lists/domainsnobypass.sample
+-@sample %%ETCDIR%%/lists/embededreferersiteiplist.sample
+-@sample %%ETCDIR%%/lists/embededreferersitelist.sample
+-@sample %%ETCDIR%%/lists/embededrefererurllist.sample
+-@sample %%ETCDIR%%/lists/exceptionclientlist.sample
+-@sample %%ETCDIR%%/lists/exceptionextensionlist.sample
+-@sample %%ETCDIR%%/lists/exceptionfilesiteiplist.sample
+-@sample %%ETCDIR%%/lists/exceptionfilesitelist.sample
+-@sample %%ETCDIR%%/lists/exceptionfileurllist.sample
+-@sample %%ETCDIR%%/lists/exceptioniplist.sample
+-@sample %%ETCDIR%%/lists/exceptionmimetypelist.sample
+-@sample %%ETCDIR%%/lists/exceptionphraselist.sample
+-@sample %%ETCDIR%%/lists/exceptionregexpheaderlist.sample
+-@sample %%ETCDIR%%/lists/exceptionregexpurllist.sample
+-@sample %%ETCDIR%%/lists/exceptionregexpuseragentlist.sample
+-@sample %%ETCDIR%%/lists/exceptionsiteiplist.sample
+-@sample %%ETCDIR%%/lists/exceptionsitelist.sample
+-@sample %%ETCDIR%%/lists/exceptionurllist.sample
+-@sample %%ETCDIR%%/lists/filtergroupslist.sample
+-@sample %%ETCDIR%%/lists/greysiteiplist.sample
+-@sample %%ETCDIR%%/lists/greysitelist.sample
+-@sample %%ETCDIR%%/lists/greysslsiteiplist.sample
+-@sample %%ETCDIR%%/lists/greysslsitelist.sample
+-@sample %%ETCDIR%%/lists/greyurllist.sample
+-@sample %%ETCDIR%%/lists/headerregexplist.sample
+-@sample %%ETCDIR%%/lists/ipnobypass.sample
+-@sample %%ETCDIR%%/lists/localbannedsearchlist.sample
+-@sample %%ETCDIR%%/lists/localbannedsiteiplist.sample
+-@sample %%ETCDIR%%/lists/localbannedsitelist.sample
+-@sample %%ETCDIR%%/lists/localbannedsslsiteiplist.sample
+-@sample %%ETCDIR%%/lists/localbannedsslsitelist.sample
+-@sample %%ETCDIR%%/lists/localbannedurllist.sample
+-@sample %%ETCDIR%%/lists/localexceptionsiteiplist.sample
+-@sample %%ETCDIR%%/lists/localexceptionsitelist.sample
+-@sample %%ETCDIR%%/lists/localexceptionurllist.sample
+-@sample %%ETCDIR%%/lists/localgreysiteiplist.sample
+-@sample %%ETCDIR%%/lists/localgreysitelist.sample
+-@sample %%ETCDIR%%/lists/localgreysslsiteiplist.sample
+-@sample %%ETCDIR%%/lists/localgreysslsitelist.sample
+-@sample %%ETCDIR%%/lists/localgreyurllist.sample
+-@sample %%ETCDIR%%/lists/logregexpurllist.sample
+-@sample %%ETCDIR%%/lists/logsiteiplist.sample
+-@sample %%ETCDIR%%/lists/logsitelist.sample
+-@sample %%ETCDIR%%/lists/logurllist.sample
+-@sample %%ETCDIR%%/lists/newbannedphraselist.sample
+-@sample %%ETCDIR%%/lists/newexceptionphraselist.sample
+-@sample %%ETCDIR%%/lists/newweightedphraselist.sample
+-@sample %%ETCDIR%%/lists/nocheckcertsiteiplist.sample
+-@sample %%ETCDIR%%/lists/nocheckcertsitelist.sample
+-%%ETCDIR%%/lists/phraselists/badwords/weighted_dutch
+-%%ETCDIR%%/lists/phraselists/badwords/weighted_french
+-%%ETCDIR%%/lists/phraselists/badwords/weighted_german
+-%%ETCDIR%%/lists/phraselists/badwords/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/badwords/weighted_spanish
+-%%ETCDIR%%/lists/phraselists/chat/weighted
+-%%ETCDIR%%/lists/phraselists/chat/weighted_italian
++@sample %%ETCDIR%%/lists/example.group/addheaderregexplist.sample
++@sample %%ETCDIR%%/lists/example.group/alertcategorylist.sample
++@sample %%ETCDIR%%/lists/example.group/allowedtldlist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedextensionlist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedmimetypelist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedphraselist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedregexpheaderlist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedregexpurllist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedregexpuseragentlist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedsearchlist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedsearchoveridelist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedsslsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedsslsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedtimelist.sample
++@sample %%ETCDIR%%/lists/example.group/bannedurllist.sample
++@sample %%ETCDIR%%/lists/example.group/blanketblocktldlist.sample
++@sample %%ETCDIR%%/lists/example.group/blankettimelist.sample
++@sample %%ETCDIR%%/lists/example.group/contentregexplist.sample
++@sample %%ETCDIR%%/lists/example.group/domainsnobypass.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionextensionlist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionfilesiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionfilesitelist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionfileurllist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionmimetypelist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionphraselist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionregexpheaderlist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionregexpurllist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionregexpuseragentlist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionurllist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionvirusextensionlist.sample
++@sample %%ETCDIR%%/lists/example.group/exceptionvirussiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/greysiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/greysitelist.sample
++@sample %%ETCDIR%%/lists/example.group/greysslsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/greysslsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/greyurllist.sample
++@sample %%ETCDIR%%/lists/example.group/headerregexplist.sample
++@sample %%ETCDIR%%/lists/example.group/ipnobypass.sample
++@sample %%ETCDIR%%/lists/example.group/localbannedsearchlist.sample
++@sample %%ETCDIR%%/lists/example.group/localbannedsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/localbannedsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/localbannedsslsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/localbannedsslsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/localbannedurllist.sample
++@sample %%ETCDIR%%/lists/example.group/localexceptionsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/localexceptionsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/localexceptionurllist.sample
++@sample %%ETCDIR%%/lists/example.group/localgreysiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/localgreysitelist.sample
++@sample %%ETCDIR%%/lists/example.group/localgreysslsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/localgreysslsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/localgreyurllist.sample
++@sample %%ETCDIR%%/lists/example.group/localsemiexceptionsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/localsemiexceptionsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/logregexpurllist.sample
++@sample %%ETCDIR%%/lists/example.group/logsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/logsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/logurllist.sample
++@sample %%ETCDIR%%/lists/example.group/nocheckcertsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/nocheckcertsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/oldbannedphraselist.sample
++@sample %%ETCDIR%%/lists/example.group/oldexceptionphraselist.sample
++@sample %%ETCDIR%%/lists/example.group/oldweightedphraselist.sample
++%%ETCDIR%%/lists/example.group/README
++@sample %%ETCDIR%%/lists/example.group/refererexceptionsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/refererexceptionsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/refererexceptionurllist.sample
++@sample %%ETCDIR%%/lists/example.group/responseheaderregexplist.sample
++@sample %%ETCDIR%%/lists/example.group/semiexceptionsiteiplist.sample
++@sample %%ETCDIR%%/lists/example.group/semiexceptionsitelist.sample
++@sample %%ETCDIR%%/lists/example.group/sslsiteregexplist.sample
++@sample %%ETCDIR%%/lists/example.group/urlnobypass.sample
++@sample %%ETCDIR%%/lists/example.group/urlredirectregexplist.sample
++@sample %%ETCDIR%%/lists/example.group/urlregexplist.sample
++@sample %%ETCDIR%%/lists/example.group/weightedphraselist.sample
++%%ETCDIR%%/lists/oldphraselists/badwords/weighted_dutch
++%%ETCDIR%%/lists/oldphraselists/badwords/weighted_french
++%%ETCDIR%%/lists/oldphraselists/badwords/weighted_german
++%%ETCDIR%%/lists/oldphraselists/badwords/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/badwords/weighted_spanish
++%%ETCDIR%%/lists/oldphraselists/chat/weighted
++%%ETCDIR%%/lists/oldphraselists/chat/weighted_italian
++%%ETCDIR%%/lists/oldphraselists/conspiracy/weighted
++%%ETCDIR%%/lists/oldphraselists/domainsforsale/weighted
++%%ETCDIR%%/lists/oldphraselists/drugadvocacy/weighted
++%%ETCDIR%%/lists/oldphraselists/forums/weighted
++%%ETCDIR%%/lists/oldphraselists/gambling/banned
++%%ETCDIR%%/lists/oldphraselists/gambling/banned_portuguese
++%%ETCDIR%%/lists/oldphraselists/gambling/weighted
++%%ETCDIR%%/lists/oldphraselists/gambling/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/games/weighted
++%%ETCDIR%%/lists/oldphraselists/goodphrases/exception
++%%ETCDIR%%/lists/oldphraselists/goodphrases/exception_email
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_general
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_general_danish
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_general_dutch
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_general_malay
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_general_polish
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_general_portuguese
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_general_swedish
++%%ETCDIR%%/lists/oldphraselists/goodphrases/weighted_news
++%%ETCDIR%%/lists/oldphraselists/googlesearches/banned
++%%ETCDIR%%/lists/oldphraselists/gore/weighted
++%%ETCDIR%%/lists/oldphraselists/gore/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/idtheft/weighted
++%%ETCDIR%%/lists/oldphraselists/illegaldrugs/banned
++%%ETCDIR%%/lists/oldphraselists/illegaldrugs/weighted
++%%ETCDIR%%/lists/oldphraselists/illegaldrugs/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/intolerance/banned_portuguese
++%%ETCDIR%%/lists/oldphraselists/intolerance/weighted
++%%ETCDIR%%/lists/oldphraselists/intolerance/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/legaldrugs/weighted
++%%ETCDIR%%/lists/oldphraselists/malware/weighted
++%%ETCDIR%%/lists/oldphraselists/music/weighted
++%%ETCDIR%%/lists/oldphraselists/news/weighted
++%%ETCDIR%%/lists/oldphraselists/nudism/weighted
++%%ETCDIR%%/lists/oldphraselists/peer2peer/weighted
++%%ETCDIR%%/lists/oldphraselists/personals/weighted
++%%ETCDIR%%/lists/oldphraselists/personals/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/pornography/banned
++%%ETCDIR%%/lists/oldphraselists/pornography/banned_portuguese
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_chinese
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_danish
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_dutch
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_french
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_german
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_italian
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_japanese
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_malay
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_norwegian
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_polish
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_russian
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_russian_utf8
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_spanish
++%%ETCDIR%%/lists/oldphraselists/pornography/weighted_swedish
++%%ETCDIR%%/lists/oldphraselists/proxies/weighted
++%%ETCDIR%%/lists/oldphraselists/rta/banned
++%%ETCDIR%%/lists/oldphraselists/safelabel/banned
++%%ETCDIR%%/lists/oldphraselists/secretsocieties/weighted
++%%ETCDIR%%/lists/oldphraselists/sport/weighted
++%%ETCDIR%%/lists/oldphraselists/translation/weighted
++%%ETCDIR%%/lists/oldphraselists/travel/weighted
++%%ETCDIR%%/lists/oldphraselists/upstreamfilter/weighted
++%%ETCDIR%%/lists/oldphraselists/violence/weighted
++%%ETCDIR%%/lists/oldphraselists/violence/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/warezhacking/weighted
++%%ETCDIR%%/lists/oldphraselists/weapons/weighted
++%%ETCDIR%%/lists/oldphraselists/weapons/weighted_portuguese
++%%ETCDIR%%/lists/oldphraselists/webmail/weighted
+ %%ETCDIR%%/lists/phraselists/chinesebig5/pornography/weighted
+ %%ETCDIR%%/lists/phraselists/chinesegb2312/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/conspiracy/weighted
+-%%ETCDIR%%/lists/phraselists/danish/goodphrases/weighted_general
++%%ETCDIR%%/lists/phraselists/danish/goodphrases/weighted
+ %%ETCDIR%%/lists/phraselists/danish/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/domainsforsale/weighted
+-%%ETCDIR%%/lists/phraselists/drugadvocacy/weighted
+ %%ETCDIR%%/lists/phraselists/dutch/badwords/weighted
+-%%ETCDIR%%/lists/phraselists/dutch/goodphrases/weighted_general
++%%ETCDIR%%/lists/phraselists/dutch/goodphrases/weighted
+ %%ETCDIR%%/lists/phraselists/dutch/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/forums/weighted
+ %%ETCDIR%%/lists/phraselists/french/badwords/weighted
+ %%ETCDIR%%/lists/phraselists/french/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/gambling/banned
+-%%ETCDIR%%/lists/phraselists/gambling/banned_portuguese
+-%%ETCDIR%%/lists/phraselists/gambling/weighted
+-%%ETCDIR%%/lists/phraselists/gambling/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/games/weighted
+ %%ETCDIR%%/lists/phraselists/german/badwords/weighted
+ %%ETCDIR%%/lists/phraselists/german/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/goodphrases/exception
+-%%ETCDIR%%/lists/phraselists/goodphrases/exception_email
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_general
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_general_danish
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_general_dutch
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_general_malay
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_general_polish
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_general_portuguese
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_general_swedish
+-%%ETCDIR%%/lists/phraselists/goodphrases/weighted_news
+-%%ETCDIR%%/lists/phraselists/googlesearches/banned
+-%%ETCDIR%%/lists/phraselists/gore/weighted
+-%%ETCDIR%%/lists/phraselists/gore/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/idtheft/weighted
+-%%ETCDIR%%/lists/phraselists/illegaldrugs/banned
+-%%ETCDIR%%/lists/phraselists/illegaldrugs/weighted
+-%%ETCDIR%%/lists/phraselists/illegaldrugs/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/intolerance/banned_portuguese
+-%%ETCDIR%%/lists/phraselists/intolerance/weighted
+-%%ETCDIR%%/lists/phraselists/intolerance/weighted_portuguese
+ %%ETCDIR%%/lists/phraselists/italian/badwords/weighted
+ %%ETCDIR%%/lists/phraselists/italian/chat/weighted
+ %%ETCDIR%%/lists/phraselists/italian/pornography/weighted
+ %%ETCDIR%%/lists/phraselists/japanese/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/legaldrugs/weighted
+-%%ETCDIR%%/lists/phraselists/malay/goodphrases/weighted_general
++%%ETCDIR%%/lists/phraselists/malay/goodphrases/weighted
+ %%ETCDIR%%/lists/phraselists/malay/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/malware/weighted
+-%%ETCDIR%%/lists/phraselists/music/weighted
+-%%ETCDIR%%/lists/phraselists/news/weighted
+ %%ETCDIR%%/lists/phraselists/norwegian/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/nudism/weighted
+-%%ETCDIR%%/lists/phraselists/peer2peer/weighted
+-%%ETCDIR%%/lists/phraselists/personals/weighted
+-%%ETCDIR%%/lists/phraselists/personals/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/polish/goodphrases/weighted_general
++%%ETCDIR%%/lists/phraselists/polish/goodphrases/weighted
+ %%ETCDIR%%/lists/phraselists/polish/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/pornography/banned
+-%%ETCDIR%%/lists/phraselists/pornography/banned_portuguese
+-%%ETCDIR%%/lists/phraselists/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_chinese
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_danish
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_dutch
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_french
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_german
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_italian
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_japanese
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_malay
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_norwegian
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_polish
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_russian
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_russian_utf8
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_spanish
+-%%ETCDIR%%/lists/phraselists/pornography/weighted_swedish
+ %%ETCDIR%%/lists/phraselists/portuguese/badwords/weighted
+ %%ETCDIR%%/lists/phraselists/portuguese/gambling/banned
+ %%ETCDIR%%/lists/phraselists/portuguese/gambling/weighted
+-%%ETCDIR%%/lists/phraselists/portuguese/goodphrases/weighted_general
++%%ETCDIR%%/lists/phraselists/portuguese/goodphrases/weighted
+ %%ETCDIR%%/lists/phraselists/portuguese/gore/weighted
+ %%ETCDIR%%/lists/phraselists/portuguese/illegaldrugs/weighted
+ %%ETCDIR%%/lists/phraselists/portuguese/intolerance/banned
+@@ -191,19 +233,12 @@
+ %%ETCDIR%%/lists/phraselists/portuguese/pornography/weighted
+ %%ETCDIR%%/lists/phraselists/portuguese/violence/weighted
+ %%ETCDIR%%/lists/phraselists/portuguese/weapons/weighted
+-%%ETCDIR%%/lists/phraselists/proxies/weighted
+-%%ETCDIR%%/lists/phraselists/rta/banned
+ %%ETCDIR%%/lists/phraselists/russian-1251/pornography/weighted
+ %%ETCDIR%%/lists/phraselists/russian-koi8-r/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/safelabel/banned
+-%%ETCDIR%%/lists/phraselists/secretsocieties/weighted
+ %%ETCDIR%%/lists/phraselists/spanish/badwords/weighted
+ %%ETCDIR%%/lists/phraselists/spanish/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/sport/weighted
+-%%ETCDIR%%/lists/phraselists/swedish/goodphrases/weighted_general
++%%ETCDIR%%/lists/phraselists/swedish/goodphrases/weighted
+ %%ETCDIR%%/lists/phraselists/swedish/pornography/weighted
+-%%ETCDIR%%/lists/phraselists/translation/weighted
+-%%ETCDIR%%/lists/phraselists/travel/weighted
+ %%ETCDIR%%/lists/phraselists/ukenglish/badwords/banned
+ %%ETCDIR%%/lists/phraselists/ukenglish/badwords/weighted
+ %%ETCDIR%%/lists/phraselists/ukenglish/chat/weighted
+@@ -225,22 +260,7 @@
+ %%ETCDIR%%/lists/phraselists/ukenglish/violence/weighted
+ %%ETCDIR%%/lists/phraselists/ukenglish/warezhacking/weighted
+ %%ETCDIR%%/lists/phraselists/ukenglish/weapons/weighted
+-%%ETCDIR%%/lists/phraselists/upstreamfilter/weighted
+-%%ETCDIR%%/lists/phraselists/violence/weighted
+-%%ETCDIR%%/lists/phraselists/violence/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/warezhacking/weighted
+-%%ETCDIR%%/lists/phraselists/weapons/weighted
+-%%ETCDIR%%/lists/phraselists/weapons/weighted_portuguese
+-%%ETCDIR%%/lists/phraselists/webmail/weighted
+-@sample %%ETCDIR%%/lists/refererexceptionsiteiplist.sample
+-@sample %%ETCDIR%%/lists/refererexceptionsitelist.sample
+-@sample %%ETCDIR%%/lists/refererexceptionurllist.sample
+-@sample %%ETCDIR%%/lists/searchregexplist.sample
+-@sample %%ETCDIR%%/lists/sslsiteregexplist.sample
+-@sample %%ETCDIR%%/lists/urlnobypass.sample
+-@sample %%ETCDIR%%/lists/urlredirectregexplist.sample
+-@sample %%ETCDIR%%/lists/urlregexplist.sample
+-@sample %%ETCDIR%%/lists/weightedphraselist.sample
++@sample %%ETCDIR%%/lists/rooms/default.sample
+ share/man/man8/e2guardian.8.gz
+ sbin/e2guardian
+ %%PORTDOCS%%%%DOCSDIR%%/AuthPlugins
