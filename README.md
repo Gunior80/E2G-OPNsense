@@ -34,7 +34,7 @@ patch -t -p0 < e2guardian.patch
 
 cd ./e2guardian
 
-make deps-recursive
+make config-recursive
 
 make install
 ```
