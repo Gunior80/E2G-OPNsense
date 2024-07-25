@@ -39,7 +39,7 @@ make config-recursive
 make install
 ```
 
-# Plugin Install
+## Plugin Install
 ```
 git clone https://github.com/Gunior80/E2G-OPNsense
 
