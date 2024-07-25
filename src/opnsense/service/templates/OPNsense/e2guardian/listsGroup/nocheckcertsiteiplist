@@ -24,7 +24,7 @@
 {%                      for nocheckcertsiteiplist in group.nocheckcertsiteiplist.split(',') %}
 {%                          set current_nocheckcertsiteiplist = helpers.getUUID(nocheckcertsiteiplist) %}
 {%                          if current_nocheckcertsiteiplist.enabled == '1' and current_nocheckcertsiteiplist.listtype == 'siteiplist' %}
-{{ current_nocheckcertsiteiplist.text }}
+{{ current_nocheckcertsiteiplist.listtext }}
 {%                          endif %}
 {%                      endfor %}
 {%                  endif %}

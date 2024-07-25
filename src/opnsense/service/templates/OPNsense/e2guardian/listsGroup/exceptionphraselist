@@ -17,3 +17,22 @@
 # Use this sparingly as can easily make exceptions of unsuitable urls
 
 #.Include</usr/local/etc/e2guardian/lists/phraselists/ukenglish/goodphrases/exception_email>
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.exceptionphraselist and group.exceptionphraselist != '' %}
+{%                      for exceptionphraselist in group.exceptionphraselist.split(',') %}
+{%                          set current_exceptionphraselist = helpers.getUUID(exceptionphraselist) %}
+{%                          if current_exceptionphraselist.enabled == '1' and current_exceptionphraselist.listtype == 'phraselist' %}
+.Include</usr/local/etc/e2guardian/lists/custom/{{ current_exceptionphraselist.listname }}>
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

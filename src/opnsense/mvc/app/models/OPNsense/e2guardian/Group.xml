@@ -62,6 +62,9 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/siteiplist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
@@ -73,6 +76,9 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/siteiplist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
@@ -84,10 +90,27 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/siteiplist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
                 </nocheckcertsiteiplist>
+                <exceptionfilesiteiplist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/siteiplist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptionfilesiteiplist>
 
                 <bannedsitelist type="ModelRelationField">
                     <Model>
@@ -96,6 +119,9 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/sitelist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
@@ -107,6 +133,9 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/sitelist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
@@ -118,10 +147,27 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/sitelist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
                 </nocheckcertsitelist>
+                <exceptionfilesitelist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/sitelist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptionfilesitelist>
 
                 <bannedurllist type="ModelRelationField">
                     <Model>
@@ -130,6 +176,9 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/urllist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
@@ -141,10 +190,186 @@
                             <items>clists.clist</items>
                             <display>listname</display>
                             <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/urllist/</listtype>
+                            </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
                 </excepturllist>
+                <exceptionfileurllist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/urllist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptionfileurllist>
+
+                <bannedsearchlist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/searchlist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedsearchlist>
+
+                <bannedregexpurllist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/regexplist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedregexpurllist>
+                <urlregexplist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/regexplist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </urlregexplist>
+                <urlredirectregexplist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/regexplist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </urlredirectregexplist>
+
+                <bannedphraselist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/phraselist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedphraselist>
+                <exceptionphraselist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/phraselist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptionphraselist>
+                <weightedphraselist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/weightedphraselist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </weightedphraselist>
+
+                <bannedextensionlist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/extensionlist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedextensionlist>
+                <exceptionextensionlist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/extensionlist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptionextensionlist>
+
+                <bannedmimetypelist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/mimetypelist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </bannedmimetypelist>
+                <exceptionmimetypelist type="ModelRelationField">
+                    <Model>
+                        <template>
+                            <source>OPNsense.e2guardian.Clist</source>
+                            <items>clists.clist</items>
+                            <display>listname</display>
+                            <display_format>%s</display_format>
+                            <filters>
+                                <listtype>/mimetypelist/</listtype>
+                            </filters>
+                        </template>
+                    </Model>
+                    <Multiple>Y</Multiple>
+                </exceptionmimetypelist>
             </group>
         </groups>
     </items>

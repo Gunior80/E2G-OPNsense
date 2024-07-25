@@ -8,7 +8,7 @@
 {%                  if group.excepturllist and group.excepturllist != '' %}
 {%                      for excepturllist in group.excepturllist.split(',') %}
 {%                          set current_excepturllist = helpers.getUUID(excepturllist) %}
-{%                          if current_excepturllist.enabled == '1' and current_excepturliplist.listtype == 'urllist' %}
+{%                          if current_excepturllist.enabled == '1' and current_excepturllist.listtype == 'urllist' %}
 .Include</usr/local/etc/e2guardian/lists/custom/{{ current_excepturllist.listname }}>
 {%                          endif %}
 {%                      endfor %}

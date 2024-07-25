@@ -148,6 +148,7 @@ $(document).ready(function() {
             });
         });
 
+
     // update history on tab state and implement navigation
     if (window.location.hash != "") {
         $('a[href="' + window.location.hash + '"]').click()

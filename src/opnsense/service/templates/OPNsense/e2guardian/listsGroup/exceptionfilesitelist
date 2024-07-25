@@ -28,3 +28,22 @@
 #windowsupdate.microsoft.com
 #update.microsoft.com
 #download.windowsupdate.com
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.exceptionfilesitelist and group.exceptionfilesitelist != '' %}
+{%                      for exceptionfilesitelist in group.exceptionfilesitelist.split(',') %}
+{%                          set current_exceptionfilesitelist = helpers.getUUID(exceptionfilesitelist) %}
+{%                          if current_exceptionfilesitelist.enabled == '1' and current_exceptionfilesitelist.listtype == 'sitelist' %}
+{{ current_exceptionfilesitelist.listtext }}
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

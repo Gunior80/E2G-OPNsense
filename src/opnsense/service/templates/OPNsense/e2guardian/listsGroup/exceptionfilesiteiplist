@@ -13,3 +13,21 @@
 # 10.0.0.1-10.0.0.3
 # 10.0.0.0/24
 #
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.exceptionfilesiteiplist and group.exceptionfilesiteiplist != '' %}
+{%                      for exceptionfilesiteiplist in group.exceptionfilesiteiplist.split(',') %}
+{%                          set current_exceptionfilesiteiplist = helpers.getUUID(exceptionfilesiteiplist) %}
+{%                          if current_exceptionfilesiteiplist.enabled == '1' and current_exceptionfilesiteiplist.listtype == 'siteiplist' %}
+{{ current_exceptionfilesiteiplist.listtext }}
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

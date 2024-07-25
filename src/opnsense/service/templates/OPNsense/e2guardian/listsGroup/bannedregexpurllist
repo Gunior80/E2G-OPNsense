@@ -118,3 +118,22 @@
 # WARNING: This is part of the URL for the e2guardian.org sample virus archive.
 # You probably don't want to go there unintentionally.
 #(Variants/AVTest)
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.bannedregexpurllist and group.bannedregexpurllist != '' %}
+{%                      for bannedregexpurllist in group.bannedregexpurllist.split(',') %}
+{%                          set current_bannedregexpurllist = helpers.getUUID(bannedregexpurllist) %}
+{%                          if current_bannedregexpurllist.enabled == '1' and current_bannedregexpurllist.listtype == 'regexplist' %}
+{{ current_bannedregexpurllist.listtext }}
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

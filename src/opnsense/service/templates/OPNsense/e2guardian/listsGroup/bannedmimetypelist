@@ -16,3 +16,22 @@
 #application/compress
 #application/x-compress
 #application/java-vm
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.bannedmimetypelist and group.bannedmimetypelist != '' %}
+{%                      for bannedmimetypelist in group.bannedmimetypelist.split(',') %}
+{%                          set current_bannedmimetypelist = helpers.getUUID(bannedmimetypelist) %}
+{%                          if current_bannedmimetypelist.enabled == '1' and current_bannedmimetypelist.listtype == 'mimetypelist' %}
+{{ current_bannedmimetypelist.listtext }}
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

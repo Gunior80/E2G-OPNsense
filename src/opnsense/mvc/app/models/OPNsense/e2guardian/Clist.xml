@@ -15,18 +15,29 @@
 						<sitelist value="sitelist">Site list</sitelist>
 						<urllist value="urllist">Url list</urllist>
                         <searchlist value="searchlist">Search list</searchlist>
-                        <urlregexplist value="regexplist">Regexp list</urlregexplist>
+                        <regexplist value="regexplist">Regexp list</regexplist>
+                        <phraselist value="phraselist">Phrase list</phraselist>
+                        <weightedphraselist value="weightedphraselist">Weighted phrase list</weightedphraselist>
+                        <extensionlist value="extensionlist">File extension list</extensionlist>
+                        <mimetypelist value="mimetypelist">MIME type list</mimetypelist>
 					</OptionValues>
 					<Required>Y</Required>
+                    <default>sitelist</default>
                 </listtype>
                 <listname type="TextField">
                     <Required>Y</Required>
+                    <Constraints>
+                        <check001>
+                            <type>UniqueConstraint</type>
+                            <ValidationMessage>Name needs to be an unique value</ValidationMessage>
+                        </check001>
+                    </Constraints>
                 </listname>
                 <visiblename type="TextField">
                     <Required>Y</Required>
                 </visiblename>
 				<listtext type="TextField">
-                    <Required>Y</Required>
+                    <Required>N</Required>
                 </listtext>
             </clist>
         </clists>

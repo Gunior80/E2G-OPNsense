@@ -209,3 +209,22 @@
 #.wmx
 #.wvx
 #.xpl
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.bannedextensionlist and group.bannedextensionlist != '' %}
+{%                      for bannedextensionlist in group.bannedextensionlist.split(',') %}
+{%                          set current_bannedextensionlist = helpers.getUUID(bannedextensionlist) %}
+{%                          if current_bannedextensionlist.enabled == '1' and current_bannedextensionlist.listtype == 'extensionlist' %}
+{{ current_bannedextensionlist.listtext }}
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

@@ -34,7 +34,7 @@
         <type>select_multiple</type>
         <style>tokenize</style>
         <allownew>true</allownew>
-        <help>Maps client IPs to this filter group.</help>
+        <help>Maps client IPs to this filter group. Examples: 192.168.0.2, 192.168.2.0/24</help>
     </field>
     <field>
         <id>group.naughtynesslimit</id>
@@ -93,6 +93,13 @@
         <style>tokenize</style>
         <help>Ignored if MITM check cert is off. Examples for list: 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
     </field>
+    <field>
+        <id>group.exceptionfilesiteiplist</id>
+        <label>Exception file site ip list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Use this list to define ip sites from which files can be downloaded. DOES NOT override content/virus scanning or site/URL bans. Examples for list: 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
+    </field>
 
     <field>
         <type>header</type>
@@ -117,7 +124,14 @@
         <label>Do not check ssl cert for sites/domains</label>
         <type>select_multiple</type>
         <style>tokenize</style>
-        <help>Ignored if MITM check cert is off. Examples for list: 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
+        <help>Ignored if MITM check cert is off. Can be used to allow sites with self-signed or invalid certificates or to reduced CPU load by not checking certs on heavily used sites (e.g. Google, Bing). Use with caution!</help>
+    </field>
+    <field>
+        <id>group.exceptionfilesitelist</id>
+        <label>Exception file site list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Use this list to define sites/domains from which files can be downloaded. DOES NOT override content/virus scanning or site/URL bans.</help>
     </field>
 
     <field>
@@ -138,8 +152,124 @@
         <style>tokenize</style>
         <help>URLs in exception list</help>
     </field>
+    <field>
+        <id>group.exceptionfileurllist</id>
+        <label>Exception file URL list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Use this list to define URLs from which files can be downloaded. DOES NOT override content/virus scanning or site/URL bans.</help>
+    </field>
 
+    <field>
+        <type>header</type>
+        <label>Search lists</label>
+    </field>
+    <field>
+        <id>group.bannedsearchlist</id>
+        <label>Banned search list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Words must be in alphabetic order within a single line and separated by a '+' sign. All combinations of the words will be blocked e.g. girl+naughty will block naughty+girl as well as girl+naughty</help>
+    </field>
 
+    <field>
+        <type>header</type>
+        <label>Regexp lists</label>
+    </field>
+    <field>
+        <id>group.bannedregexpurllist</id>
+        <label>Banned Regular Expression URLs</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+    </field>
+    <field>
+        <id>group.urlregexplist</id>
+        <label>URL modifying Regular Expressions</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Used to modify url on the fly use to enforce safe search etc. Do not try and change target site - use redirect for this.</help>
+    </field>
+    <field>
+        <id>group.urlredirectregexplist</id>
+        <label>URL redirect Regular Expressions</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>Used to redirect browser to different site and or url. 'regexp_pattern'->'url_to_redirect_to'</help>
+    </field>
 
+    <field>
+        <type>header</type>
+        <label>Phrase lists</label>
+    </field>
+    <field>
+        <id>group.bannedphraselist</id>
+        <label>Banned phrase list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help><![CDATA[Examples:<br /> &lt; test&gt; will match any word with the string 'test' at the beginning.<br />
+            &lt;test &gt; will match any word with the string 'test' at the end.<br />
+            &lt;test&gt; will match any word with the string 'test' at any point in the word.<br />
+            &lt; test &gt; will match only the word 'test'.<br />
+            &lt;this is a test phrase&gt; will match that exact phrase.<br />
+            &lt;test&gt;,&lt;secondtest&gt; will match if both words are found in the page.<br />
+            A combination of the above can also be used eg &lt; test&gt;,&lt;secondtest&gt;]]>
+        </help>
+    </field>
+    <field>
+        <id>group.exceptionphraselist</id>
+        <label>Exception phrase list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help><![CDATA[Examples:<br /> If any of the phrases listed below appear in a web page <br />
+        then it will bypass the filtering and be allowed through <br />
+        eg &lt; medical &gt; <br />
+        Unblock the page if the following phrases are found on the same page. Each line is a new combination.<br />
+        eg<br />
+        &lt;education&gt;,&lt;biology&gt;,&lt;medical&gt;]]>
+        </help>
+    </field>
+    <field>
+        <id>group.weightedphraselist</id>
+        <label>Weighted phrase list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help><![CDATA[Examples:<br />
+        &lt;slut&gt;&lt;10&gt; - Adds 10 to the count against the string 'slut'. ie. sluts, slut!, abslutxyz.<br />
+        &lt; slut &gt;&lt;10&gt; - Adds 10 to the count against the word 'slut'. ie. Sally is a slut that smells.<br />
+        &lt;slut&gt;,&lt;horny&gt;&lt;50&gt; - Adds 50 to the count when the strings 'slut' and 'horny' are found on the same page.<br />
+        &lt;breast&gt;,&lt;medical&gt;&lt;-30&gt; - Subtracts 30 from the count when 'breast' and 'medical' are on the one page.<br />
+        &lt;education&gt;&lt;-25&gt; - Subtracts 25 from the count when 'education' is on the page.<br />]]>
+        </help>
+    </field>
 
+    <field>
+        <type>header</type>
+        <label>MIME type and file extension lists</label>
+    </field>
+    <field>
+        <id>group.bannedextensionlist</id>
+        <label>Banned file extension list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>File extensions with executable code. The following file extensions can contain executable code. This means they can potentially carry a virus to infect your computer.</help>
+    </field>
+    <field>
+        <id>group.exceptionextensionlist</id>
+        <label>Exception file extension list</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+    </field>
+    <field>
+        <id>group.bannedmimetypelist</id>
+        <label>banned MIME types</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+    </field>
+    <field>
+        <id>group.exceptionmimetypelist</id>
+        <label>Exception MIME types</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <help>DOES NOT override content/virus scanning or site/URL bans.</help>
+    </field>
 </form>

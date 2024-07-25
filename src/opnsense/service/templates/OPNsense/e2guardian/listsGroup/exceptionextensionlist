@@ -10,40 +10,59 @@
 
 # Text/web document types
 
-.css
-.html
-.shtml
-.htm
-.stm
-.asp
-.php
-.txt
-.rtx
-.xml
-.xsl
-.cgi
-.pl
+#.css
+#.html
+#.shtml
+#.htm
+#.stm
+#.asp
+#.php
+#.txt
+#.rtx
+#.xml
+#.xsl
+#.cgi
+#.pl
 
 # Image types
 
-.bmp
-.cod
-.gif
-.ief
-.jpe
-.jpeg
-.jpg
-.jfif
-.tif
-.tiff
-.ras
-.cmx
-.ico
-.pnm
-.pbm
-.pgm
-.ppm
-.rgb
-.xbm
-.xpm
-.xwd
+#.bmp
+#.cod
+#.gif
+#.ief
+#.jpe
+#.jpeg
+#.jpg
+#.jfif
+#.tif
+#.tiff
+#.ras
+#.cmx
+#.ico
+#.pnm
+#.pbm
+#.pgm
+#.ppm
+#.rgb
+#.xbm
+#.xpm
+#.xwd
+
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.exceptionextensionlist and group.exceptionextensionlist != '' %}
+{%                      for exceptionextensionlist in group.exceptionextensionlist.split(',') %}
+{%                          set current_exceptionextensionlist = helpers.getUUID(exceptionextensionlist) %}
+{%                          if current_exceptionextensionlist.enabled == '1' and current_exceptionextensionlist.listtype == 'extensionlist' %}
+{{ current_exceptionextensionlist.listtext }}
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}

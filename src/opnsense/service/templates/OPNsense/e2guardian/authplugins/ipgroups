@@ -13,12 +13,10 @@
 {% if OPNsense.e2guardian.general.authmethod == '2' %}
 {%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
 {%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
-{%          if group.enabled == '1' %}
-{%              if group.authip|default('') != '' %}
+{%          if group.authip|default('') != '' %}
 {%                  for ip in group.authip.split(',') %}
 {{ ip }} = filter{{group.instance}}
 {%                  endfor %}
-{%              endif %}
 {%          endif %}
 {%      endfor %}
 {%  endif %}
