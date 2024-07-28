@@ -56,8 +56,10 @@
 {%                  if group.exceptionextensionlist and group.exceptionextensionlist != '' %}
 {%                      for exceptionextensionlist in group.exceptionextensionlist.split(',') %}
 {%                          set current_exceptionextensionlist = helpers.getUUID(exceptionextensionlist) %}
-{%                          if current_exceptionextensionlist.enabled == '1' and current_exceptionextensionlist.listtype == 'extensionlist' %}
-{{ current_exceptionextensionlist.listtext }}
+{%                          if current_exceptionextensionlist.extensionfield is defined and current_exceptionextensionlist.extensionfield != '' %}
+{%                              for extension in current_exceptionextensionlist.extensionfield.split(',') %}
+{{ extension }}
+{%                              endfor %}
 {%                          endif %}
 {%                      endfor %}
 {%                  endif %}

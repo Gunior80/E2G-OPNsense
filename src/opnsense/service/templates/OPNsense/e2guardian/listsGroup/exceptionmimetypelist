@@ -47,8 +47,10 @@
 {%                  if group.exceptionmimetypelist and group.exceptionmimetypelist != '' %}
 {%                      for exceptionmimetypelist in group.exceptionmimetypelist.split(',') %}
 {%                          set current_exceptionmimetypelist = helpers.getUUID(exceptionmimetypelist) %}
-{%                          if current_exceptionmimetypelist.enabled == '1' and current_exceptionmimetypelist.listtype == 'mimetypelist' %}
-{{ current_exceptionmimetypelist.listtext }}
+{%                          if current_exceptionmimetypelist.mimetypefield is defined and current_exceptionmimetypelist.mimetypefield != '' %}
+{%                              for mimetypefield in current_exceptionmimetypelist.mimetypefield.split(',') %}
+{{ mimetypefield }}
+{%                              endfor %}
 {%                          endif %}
 {%                      endfor %}
 {%                  endif %}

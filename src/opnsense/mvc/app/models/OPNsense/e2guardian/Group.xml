@@ -235,13 +235,13 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/regexplist/</listtype>
+                                <listtype>/regexpurllist/</listtype>
                             </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
                 </bannedregexpurllist>
-                <urlregexplist type="ModelRelationField">
+                <urlmodregexplist type="ModelRelationField">
                     <Model>
                         <template>
                             <source>OPNsense.e2guardian.Clist</source>
@@ -249,12 +249,12 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/regexplist/</listtype>
+                                <listtype>/regexpmodlist/</listtype>
                             </filters>
                         </template>
                     </Model>
                     <Multiple>Y</Multiple>
-                </urlregexplist>
+                </urlmodregexplist>
                 <urlredirectregexplist type="ModelRelationField">
                     <Model>
                         <template>
@@ -263,7 +263,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/regexplist/</listtype>
+                                <listtype>/regexpredirectlist/</listtype>
                             </filters>
                         </template>
                     </Model>

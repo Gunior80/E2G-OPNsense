@@ -129,24 +129,66 @@ $(document).ready(function() {
         });
     });
 
-    $("#grid-clists").UIBootgrid({
-            search: '/api/e2guardian/clist/searchClist',
-            get: '/api/e2guardian/clist/getClist/',
-            set: '/api/e2guardian/clist/setClist/',
-            add: '/api/e2guardian/clist/addClist/',
-            del: '/api/e2guardian/clist/delClist/',
-            toggle: '/api/e2guardian/clist/toggleClist/'
-        });
+    var authFields = {
+        "1": '#row_group\\.authport',
+        "2": '#row_group\\.authip',
+    };
+    $("#general\\.authmethod").on('change', function(e) {
+        console.log(this.value);
+        var field = $(authFields["2"]);
+        for (let key in authFields) {
+            if (key == this.value) {
+                field = $(authFields[key]);
+            } else {
+                $(authFields[key]).hide();
+            };
+        };
+        field.show();
+    });
 
-        $("#saveAct_clist").click(function() {
-            saveFormToEndpoint(url = "/api/e2guardian/clist/set", formid = 'frm_general_settings', callback_ok = function() {
-                $("#saveAct_clist_progress").addClass("fa fa-spinner fa-pulse");
-                ajaxCall(url = "/api/e2guardian/service/reconfigure", sendData = {}, callback = function(data, status) {
-                    updateServiceControlUI('e2guardian');
-                    $("#saveAct_clist_progress").removeClass("fa fa-spinner fa-pulse");
-                });
+    $("#grid-clists").UIBootgrid({
+        search: '/api/e2guardian/clist/searchClist',
+        get: '/api/e2guardian/clist/getClist/',
+        set: '/api/e2guardian/clist/setClist/',
+        add: '/api/e2guardian/clist/addClist/',
+        del: '/api/e2guardian/clist/delClist/',
+        toggle: '/api/e2guardian/clist/toggleClist/'
+    });
+
+    $("#saveAct_clist").click(function() {
+        saveFormToEndpoint(url = "/api/e2guardian/clist/set", formid = 'frm_general_settings', callback_ok = function() {
+            $("#saveAct_clist_progress").addClass("fa fa-spinner fa-pulse");
+            ajaxCall(url = "/api/e2guardian/service/reconfigure", sendData = {}, callback = function(data, status) {
+                updateServiceControlUI('e2guardian');
+                $("#saveAct_clist_progress").removeClass("fa fa-spinner fa-pulse");
             });
         });
+    });
+
+    var typeFields = {
+        "siteiplist": '#row_clist\\.ipfield',
+        "sitelist": '#row_clist\\.sitefield',
+        "urllist": '#row_clist\\.urlfield',
+        "searchlist": '#row_clist\\.searchfield',
+        "phraselist": '#row_clist\\.phrasefield',
+        "weightedphraselist": '#row_clist\\.weightedphrasefield',
+        "extensionlist": '#row_clist\\.extensionfield',
+        "mimetypelist": '#row_clist\\.mimetypefield',
+        "regexpurllist": '#row_clist\\.regexpurlfield',
+        "urlmodregexplist": '#row_clist\\.regexpurlmodfield',
+        "urlredirectregexplist": '#row_clist\\.regexpurlredirectfield',
+    };
+    $("#clist\\.listtype").on('change', function(e) {
+        var field;
+        for (let key in typeFields) {
+            if (key == this.value) {
+                field = $(typeFields[key]);
+            } else {
+                $(typeFields[key]).hide();
+            };
+        };
+        field.show();
+     });
 
 
     // update history on tab state and implement navigation

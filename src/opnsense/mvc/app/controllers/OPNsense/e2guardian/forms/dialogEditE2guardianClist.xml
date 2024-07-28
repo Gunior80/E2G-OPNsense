@@ -22,10 +22,143 @@
         <type>text</type>
         <help>List name for block page.</help>
     </field>
+
     <field>
-        <id>clist.listtext</id>
-        <label>List</label>
-        <type>textbox</type>
-        <help>One record per line.</help>
+        <id>clist.ipfield</id>
+        <label>IP adresses</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help>IP site addresses. Single IPs, ranges and subnets can be used, e.g. 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
+    </field>
+    <field>
+        <id>clist.sitefield</id>
+        <label>Site names</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <hint>example.com</hint>
+        <help>No need to specify http(s):// or the www. You can include .tld so for example you can match .gov for example.</help>
+    </field>
+    <field>
+        <id>clist.urlfield</id>
+        <label>URLs</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help>No need to specify http(s):// or the www. Example: "example.com/page"</help>
+    </field>
+    <field>
+        <id>clist.searchfield</id>
+        <label>Search Words</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help>Words must be in alphabetic order within a single line and separated by a '+' sign. All combinations of the words will be blocked e.g. girl+naughty will block  naughty+girl as well as girl+naughty</help>
+    </field>
+
+    <field>
+        <id>clist.regexpurlfield</id>
+        <label>URLs based on Regular Expressions</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help><![CDATA[E.g. 'sex' would block sex.com and middlesex.com etc.<br />
+        These examples should be used with extreme caution<br />
+        as most regexp url patterns tend to overblock<br />
+        Be as specific as possible as this helps avoid this<br />
+        SoftCore phrases - more likely to overblock - possibly on news sites:<br />
+        (incest|obscene|pedophil|pedofil)<br />
+        <br />
+        Photo Modeling - supplied by David Burkholder:<br />
+        (male|m[ae]n|boy|girl|beaut|agen[ct]|glam)+.*(model|talent)<br />
+        <br />
+        Block unfiltered options on various search engines:<br />
+        (^|[\?+=&/])(.*\.google\..*/.*\?.*safe=off)([\?+=&/]|$)<br />
+        (^|[\?+=&/])(.*\.alltheweb.com/customize\?.*copt_offensive=off)([\?+=&/]|$)]]>
+        </help>
+    </field>
+    <field>
+        <id>clist.regexpurlmodfield</id>
+        <label>URL modifying Regular Expressions</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help><![CDATA[Used to modify url on the fly use to enforce safe search etc. Do not try and change target site - use redirect for this.<br />
+        This list applies to the full URL for HTTP sites, and if configured for SSL MITM, also HTTPS urls.<br />
+        The format is: "extended regular expression"->"replacement straight string"<br />
+        E.g. "shit"->"censored" would replace all occurances of shit in any case.<br />
+        Far more complicated matches are possible. See other sources for examples of extended regular expressions.<br />
+        Users are pointed at the replaced URL transparently.
+        Manipulates the URL to automatically switch on safe searching in Google, Singingfish, Ilse, KEL, Lycos, Alltheweb, Yahoo, Hotbot, Wisenut, Metacrawler.<br />
+        Google, Go etc. - remove 'safe=...'<br />
+        "(^http://[0-9a-z]+\.google\.[a-z]+[-/%.0-9a-z]*/images\?)(.*)(&?)(safe=[^&]*)"->"\1\2\3"<br />
+        ... and add 'safe=vss'<br />
+        "(^http://[0-9a-z]+\.google\.[a-z]+[-/%.0-9a-z]*/images\?)"->"\1safe=vss&"<br />]]>
+        </help>
+    </field>
+    <field>
+        <id>clist.regexpurlredirectfield</id>
+        <label>URL redirect Regular Expressions</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help><![CDATA[redirect browser to different url<br />
+        'regexp_pattern'->'url_to_redirect_to']]></help>
+    </field>
+
+    <field>
+        <id>clist.phrasefield</id>
+        <label>Phrases</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help><![CDATA[Examples:<br /> &lt; test&gt; will match any word with the string 'test' at the beginning.<br />
+            &lt;test &gt; will match any word with the string 'test' at the end.<br />
+            &lt;test&gt; will match any word with the string 'test' at any point in the word.<br />
+            &lt; test &gt; will match only the word 'test'.<br />
+            &lt;this is a test phrase&gt; will match that exact phrase.<br />
+            &lt;test&gt;;&lt;secondtest&gt; will match if both words are found in the page.<br />
+            A combination of the above can also be used eg &lt; test&gt;;&lt;secondtest&gt;]]>
+        </help>
+    </field>
+    <field>
+        <id>clist.weightedphrasefield</id>
+        <label>Weighted Phrases</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help><![CDATA[Examples:<br />
+        &lt;slut&gt;&lt;10&gt; - Adds 10 to the count against the string 'slut'. ie. sluts, slut!, abslutxyz.<br />
+        &lt; slut &gt;&lt;10&gt; - Adds 10 to the count against the word 'slut'. ie. Sally is a slut that smells.<br />
+        &lt;slut&gt;;&lt;horny&gt;&lt;50&gt; - Adds 50 to the count when the strings 'slut' and 'horny' are found on the same page.<br />
+        &lt;breast&gt;;&lt;medical&gt;&lt;-30&gt; - Subtracts 30 from the count when 'breast' and 'medical' are on the one page.<br />
+        &lt;education&gt;&lt;-25&gt; - Subtracts 25 from the count when 'education' is on the page.<br />]]>
+        </help>
+    </field>
+    <field>
+        <id>clist.extensionfield</id>
+        <label>Extensions</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+    </field>
+    <field>
+        <id>clist.mimetypefield</id>
+        <label>MIME types</label>
+        <type>text</type>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
     </field>
 </form>

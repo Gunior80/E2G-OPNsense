@@ -4,7 +4,36 @@
 {%     if TARGET_FILTERS['OPNsense.e2guardian.clist.clists.clist.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.clist.clists.clist'] %}
 {%       if list.enabled == '1' %}
 #listcategory: "{{ list.visiblename }}"
-{{ list.listtext }}
+{%          if list.ipfield is defined and list.ipfield != '' %}
+{%              for ip in list.ipfield.split(',') %}
+{{ ip }}
+{%              endfor %}
+{%          endif %}
+{%          if list.sitefield is defined and list.sitefield != '' %}
+{%              for site in list.sitefield.split(',') %}
+{{ site }}
+{%              endfor %}
+{%          endif %}
+{%          if list.urlfield is defined and list.urlfield != '' %}
+{%              for url in list.urlfield.split(',') %}
+{{ url }}
+{%              endfor %}
+{%          endif %}
+{%          if list.searchfield is defined and list.searchfield != '' %}
+{%              for search in list.searchfield.split(',') %}
+{{ search }}
+{%              endfor %}
+{%          endif %}
+{%          if list.phrasefield is defined and list.phrasefield != '' %}
+{%              for phrase in list.phrasefield.split(',') %}
+{{ phrase|replace(";",",") }}
+{%              endfor %}
+{%          endif %}
+{%          if list.weightedphrasefield is defined and list.weightedphrasefield != '' %}
+{%              for weightedphrase in list.weightedphrasefield.split(',') %}
+{{ weightedphrase|replace(";",",") }}
+{%              endfor %}
+{%          endif %}
 {%       endif %}
 {%     endif %}
 {%   endfor %}

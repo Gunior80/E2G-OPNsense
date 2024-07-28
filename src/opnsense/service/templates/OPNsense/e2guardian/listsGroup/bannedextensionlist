@@ -218,8 +218,10 @@
 {%                  if group.bannedextensionlist and group.bannedextensionlist != '' %}
 {%                      for bannedextensionlist in group.bannedextensionlist.split(',') %}
 {%                          set current_bannedextensionlist = helpers.getUUID(bannedextensionlist) %}
-{%                          if current_bannedextensionlist.enabled == '1' and current_bannedextensionlist.listtype == 'extensionlist' %}
-{{ current_bannedextensionlist.listtext }}
+{%                          if current_bannedextensionlist.extensionfield is defined and current_bannedextensionlist.extensionfield != '' %}
+{%                              for extension in current_bannedextensionlist.extensionfield.split(',') %}
+{{ extension }}
+{%                              endfor %}
 {%                          endif %}
 {%                      endfor %}
 {%                  endif %}

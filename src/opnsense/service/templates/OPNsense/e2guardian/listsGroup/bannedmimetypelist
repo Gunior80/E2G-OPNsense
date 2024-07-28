@@ -25,8 +25,10 @@
 {%                  if group.bannedmimetypelist and group.bannedmimetypelist != '' %}
 {%                      for bannedmimetypelist in group.bannedmimetypelist.split(',') %}
 {%                          set current_bannedmimetypelist = helpers.getUUID(bannedmimetypelist) %}
-{%                          if current_bannedmimetypelist.enabled == '1' and current_bannedmimetypelist.listtype == 'mimetypelist' %}
-{{ current_bannedmimetypelist.listtext }}
+{%                          if current_bannedmimetypelist.mimetypefield is defined and current_bannedmimetypelist.mimetypefield != '' %}
+{%                              for mimetypefield in current_bannedmimetypelist.mimetypefield.split(',') %}
+{{ mimetypefield }}
+{%                              endfor %}
 {%                          endif %}
 {%                      endfor %}
 {%                  endif %}

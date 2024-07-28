@@ -15,7 +15,9 @@
 						<sitelist value="sitelist">Site list</sitelist>
 						<urllist value="urllist">Url list</urllist>
                         <searchlist value="searchlist">Search list</searchlist>
-                        <regexplist value="regexplist">Regexp list</regexplist>
+                        <regexpurllist value="regexpurllist">Regexp URL list</regexpurllist>
+                        <urlmodregexplist value="urlmodregexplist">Regexp URL modifying list</urlmodregexplist>
+                        <urlredirectregexplist value="urlredirectregexplist">Regexp redirect list</urlredirectregexplist>
                         <phraselist value="phraselist">Phrase list</phraselist>
                         <weightedphraselist value="weightedphraselist">Weighted phrase list</weightedphraselist>
                         <extensionlist value="extensionlist">File extension list</extensionlist>
@@ -36,9 +38,162 @@
                 <visiblename type="TextField">
                     <Required>Y</Required>
                 </visiblename>
-				<listtext type="TextField">
+                <ipfield type="CSVListField">
                     <Required>N</Required>
-                </listtext>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <Mask>/^(((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}|((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\/([0-9]|1[0-9]|2[0-9]|3[0-2])|((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\-((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4})$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>siteiplist</check>
+                        </check001>
+                    </Constraints>
+                </ipfield>
+                <sitefield type="HostnameField">
+                    <Required>N</Required>
+                    <AsList>Y</AsList>
+                    <IpAllowed>N</IpAllowed>
+                    <HostWildcardAllowed>N</HostWildcardAllowed>
+                    <FqdnWildcardAllowed>N</FqdnWildcardAllowed>
+                    <ZoneRootAllowed>N</ZoneRootAllowed>
+                    <FieldSeparator>,</FieldSeparator>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>sitelist</check>
+                        </check001>
+                    </Constraints>
+                </sitefield>
+                <urlfield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <Mask>/^([-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/=]*))$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>urllist</check>
+                        </check001>
+                    </Constraints>
+                </urlfield>
+                <searchfield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <Mask>/^(([\w\d]+\+[\w\d]+)+)$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>searchlist</check>
+                        </check001>
+                    </Constraints>
+                </searchfield>
+
+                <regexpurlfield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>regexpurllist</check>
+                        </check001>
+                    </Constraints>
+                </regexpurlfield>
+                <regexpurlmodfield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>urlmodregexplist</check>
+                        </check001>
+                    </Constraints>
+                </regexpurlmodfield>
+                <regexpurlredirectfield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>urlredirectregexplist</check>
+                        </check001>
+                    </Constraints>
+                </regexpurlredirectfield>
+
+                <phrasefield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <Mask>/^(&lt;.+&gt;(;&lt;.+&gt;)?)$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>phraselist</check>
+                        </check001>
+                    </Constraints>
+                </phrasefield>
+                <weightedphrasefield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <FieldSeparator>;</FieldSeparator>
+                    <Mask>/^(&lt;.+&gt;(;&lt;.+&gt;)?&lt;(-)?[1-9]+0*&gt;)$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>weightedphraselist</check>
+                        </check001>
+                    </Constraints>
+                </weightedphrasefield>
+                <extensionfield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <FieldSeparator>;</FieldSeparator>
+                    <Mask>/^\.[0-9a-z]+$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>extensionlist</check>
+                        </check001>
+                    </Constraints>
+                </extensionfield>
+                <mimetypefield type="CSVListField">
+                    <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <FieldSeparator>;</FieldSeparator>
+                    <Mask>/^[-\w.]+\/[-\w.+]+$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>This field must be set.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>mimetypelist</check>
+                        </check001>
+                    </Constraints>
+                </mimetypefield>
             </clist>
         </clists>
     </items>
