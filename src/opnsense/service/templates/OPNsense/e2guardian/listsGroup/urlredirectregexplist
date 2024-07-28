@@ -6,11 +6,11 @@
 {%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
 {%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
 {%              if group.enabled == '1' %}
-{%                  if group.regexpurlredirectfield and group.regexpurlredirectfield != '' %}
-{%                      for regexpurlredirectfield in group.regexpurlredirectfield.split(',') %}
-{%                          set current_regexpurlredirectfield = helpers.getUUID(regexpurlredirectfield) %}
-{%                          if current_regexpurlredirectfield.urlredirectregexplist is defined and current_regexpurlredirectfield.urlredirectregexplist != '' %}
-{%                              for regexp in current_regexpurlredirectfield.urlredirectregexplist.split(',') %}
+{%                  if group.urlredirectregexplist and group.urlredirectregexplist != '' %}
+{%                      for urlredirectregexplist in group.urlredirectregexplist.split(',') %}
+{%                          set current_urlredirectregexplist = helpers.getUUID(urlredirectregexplist) %}
+{%                          if current_urlredirectregexplist.regexpurlredirectfield is defined and current_urlredirectregexplist.regexpurlredirectfield != '' %}
+{%                              for regexp in current_urlredirectregexplist.regexpurlredirectfield.split(',') %}
 {{ regexp }}
 {%                              endfor %}
 {%                          endif %}

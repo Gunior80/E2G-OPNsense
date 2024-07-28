@@ -5,11 +5,11 @@
 {%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
 {%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
 {%              if group.enabled == '1' %}
-{%                  if group.regexpurlmodfield and group.regexpurlmodfield != '' %}
-{%                      for regexpurlmodfield in group.regexpurlmodfield.split(',') %}
-{%                          set current_regexpurlmodfield = helpers.getUUID(regexpurlmodfield) %}
-{%                          if current_regexpurlmodfield.urlmodregexplist is defined and current_regexpurlmodfield.urlmodregexplist != '' %}
-{%                              for regexp in current_regexpurlmodfield.urlmodregexplist.split(',') %}
+{%                  if group.urlmodregexplist and group.urlmodregexplist != '' %}
+{%                      for urlmodregexplist in group.urlmodregexplist.split(',') %}
+{%                          set current_urlmodregexplist = helpers.getUUID(urlmodregexplist) %}
+{%                          if current_urlmodregexplist.regexpurlmodfield is defined and current_urlmodregexplist.regexpurlmodfield != '' %}
+{%                              for regexp in current_urlmodregexplist.regexpurlmodfield.split(',') %}
 {{ regexp }}
 {%                              endfor %}
 {%                          endif %}

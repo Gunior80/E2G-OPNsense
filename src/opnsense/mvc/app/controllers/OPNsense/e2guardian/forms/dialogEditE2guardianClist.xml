@@ -111,7 +111,7 @@
         <style>tokenize</style>
         <allownew>true</allownew>
         <help><![CDATA[redirect browser to different url<br />
-        'regexp_pattern'->'url_to_redirect_to']]></help>
+        "regexp_pattern"->"url_to_redirect_to"]]></help>
     </field>
 
     <field>

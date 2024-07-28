@@ -249,7 +249,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/regexpmodlist/</listtype>
+                                <listtype>/urlmodregexplist/</listtype>
                             </filters>
                         </template>
                     </Model>
@@ -263,7 +263,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/regexpredirectlist/</listtype>
+                                <listtype>/urlredirectregexplist/</listtype>
                             </filters>
                         </template>
                     </Model>

@@ -6,11 +6,11 @@
 {%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
 {%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
 {%              if group.enabled == '1' %}
-{%                  if group.regexpurlfield and group.regexpurlfield != '' %}
-{%                      for regexpurlfield in group.regexpurlfield.split(',') %}
-{%                          set current_regexpurlfield = helpers.getUUID(regexpurlfield) %}
-{%                          if current_regexpurlfield.regexpurllist is defined and current_regexpurlfield.regexpurllist != '' %}
-{%                              for regexp in current_regexpurlfield.regexpurllist.split(',') %}
+{%                  if group.bannedregexpurllist and group.bannedregexpurllist != '' %}
+{%                      for bannedregexpurllist in group.bannedregexpurllist.split(',') %}
+{%                          set current_bannedregexpurllist = helpers.getUUID(bannedregexpurllist) %}
+{%                          if current_bannedregexpurllist.regexpurlfield is defined and current_bannedregexpurllist.regexpurlfield != '' %}
+{%                              for regexp in current_bannedregexpurllist.regexpurlfield.split(',') %}
 {{ regexp }}
 {%                              endfor %}
 {%                          endif %}
