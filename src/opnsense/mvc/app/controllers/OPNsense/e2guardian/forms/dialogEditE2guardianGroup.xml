@@ -31,10 +31,11 @@
     <field>
         <id>group.authip</id>
         <label>Auth IP</label>
+        <type>text</type>
         <type>select_multiple</type>
         <style>tokenize</style>
         <allownew>true</allownew>
-        <help>Maps client IPs to this filter group. Examples: 192.168.0.2, 192.168.2.0/24</help>
+        <help>Maps client IPs to this filter group. Single IPs, ranges and subnets can be used, e.g. 192.168.0.1, 10.0.0.1-10.0.0.3, 10.0.0.0/24</help>
     </field>
     <field>
         <id>group.naughtynesslimit</id>

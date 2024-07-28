@@ -23,13 +23,19 @@
                     <Required>N</Required>
                 </authport>
 
-                <authip type="NetworkField">
-                    <FieldSeparator>,</FieldSeparator>
-                    <asList>Y</asList>
-                    <NetMaskAllowed>Y</NetMaskAllowed>
-                    <WildcardEnabled>N</WildcardEnabled>
-                    <ValidationMessage>Please use valid IPv4 addresses.</ValidationMessage>
+                <authip type="CSVListField">
                     <Required>N</Required>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <Mask>/^([-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/=]*))$/i</Mask>
+                    <Constraints>
+                        <check001>
+                            <ValidationMessage>Please use valid IPv4 addresses.</ValidationMessage>
+                            <type>SetIfConstraint</type>
+                            <field>listtype</field>
+                            <check>urllist</check>
+                        </check001>
+                    </Constraints>
                 </authip>
                 <naughtynesslimit type="IntegerField">
                     <Required>Y</Required>
