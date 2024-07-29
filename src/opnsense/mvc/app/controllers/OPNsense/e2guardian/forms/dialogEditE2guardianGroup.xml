@@ -183,6 +183,12 @@
         <style>tokenize</style>
     </field>
     <field>
+        <id>group.exceptionregexpurllist</id>
+        <label>Exception Regular Expression URLs</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+    </field>
+    <field>
         <id>group.urlmodregexplist</id>
         <label>URL modifying Regular Expressions</label>
         <type>select_multiple</type>

@@ -12,4 +12,23 @@
 # Allow Facebook plugin applications like
 # http://apps.facebook.com/neighborhoods/Setup.aspx and others.
 #mock_ajax_proxy.php
-
+{% if helpers.exists('OPNsense.e2guardian.general.enabled') and OPNsense.e2guardian.general.enabled == '1' %}
+{%  if helpers.exists('OPNsense.e2guardian.group.groups.group') %}
+{%      for group in helpers.toList('OPNsense.e2guardian.group.groups.group') %}
+{%          if TARGET_FILTERS['OPNsense.e2guardian.group.groups.group.' ~ loop.index0] or TARGET_FILTERS['OPNsense.e2guardian.group.groups.group'] %}
+{%              if group.enabled == '1' %}
+{%                  if group.exceptionregexpurllist and group.exceptionregexpurllist != '' %}
+{%                      for exceptionregexpurllist in group.exceptionregexpurllist.split(',') %}
+{%                          set current_exceptionregexpurllist = helpers.getUUID(exceptionregexpurllist) %}
+{%                          if current_exceptionregexpurllist.regexpurlfield is defined and current_exceptionregexpurllist.regexpurlfield != '' %}
+{%                              for regexp in current_exceptionregexpurllist.regexpurlfield.split(',') %}
+{{ regexp }}
+{%                              endfor %}
+{%                          endif %}
+{%                      endfor %}
+{%                  endif %}
+{%              endif %}
+{%          endif %}
+{%      endfor %}
+{%  endif %}
+{% endif %}
