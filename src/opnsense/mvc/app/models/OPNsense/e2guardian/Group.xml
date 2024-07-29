@@ -183,7 +183,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/urllist/</listtype>
+                                <listtype>/^urllist/</listtype>
                             </filters>
                         </template>
                     </Model>
@@ -197,7 +197,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/urllist/</listtype>
+                                <listtype>/^urllist/</listtype>
                             </filters>
                         </template>
                     </Model>
@@ -211,7 +211,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/urllist/</listtype>
+                                <listtype>/^urllist/</listtype>
                             </filters>
                         </template>
                     </Model>
@@ -284,7 +284,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/phraselist/</listtype>
+                                <listtype>/^phraselist/</listtype>
                             </filters>
                         </template>
                     </Model>
@@ -298,7 +298,7 @@
                             <display>listname</display>
                             <display_format>%s</display_format>
                             <filters>
-                                <listtype>/phraselist/</listtype>
+                                <listtype>/^phraselist/</listtype>
                             </filters>
                         </template>
                     </Model>
