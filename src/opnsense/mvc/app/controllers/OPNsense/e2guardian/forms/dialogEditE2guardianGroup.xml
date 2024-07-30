@@ -24,8 +24,10 @@
     <field>
         <id>group.authport</id>
         <label>Auth port</label>
+        <type>text</type>
         <type>select_multiple</type>
         <style>tokenize</style>
+        <allownew>true</allownew>
         <help>Maps IP Ports to this filter group.</help>
     </field>
     <field>

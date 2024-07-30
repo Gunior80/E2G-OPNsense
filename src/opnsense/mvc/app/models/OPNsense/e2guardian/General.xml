@@ -45,10 +45,11 @@
             <default>127.0.0.1</default>
             <Required>N</Required>
         </checkip>
-        <extracheckports type=".\CustomPortField">
-            <Multiple>Y</Multiple>
-            <ValidationMessage>Please use valid port number.</ValidationMessage>
+        <extracheckports type="CSVListField">
             <Required>N</Required>
+            <multiple>Y</multiple>
+            <MaskPerItem>Y</MaskPerItem>
+            <Mask>/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/i</Mask>
         </extracheckports>
         <transparenthttpsport type="PortField">
             <Multiple>N</Multiple>
@@ -86,11 +87,12 @@
             <ValidationMessage>Please use valid IPv4 addresses.</ValidationMessage>
             <Required>N</Required>
         </filterip>
-        <filterports type=".\CustomPortField">
-            <Multiple>Y</Multiple>
-            <ValidationMessage>Please use valid port number.</ValidationMessage>
-            <default>8080</default>
+        <filterports type="CSVListField">
             <Required>Y</Required>
+            <multiple>Y</multiple>
+            <MaskPerItem>Y</MaskPerItem>
+            <default>8080</default>
+            <Mask>/^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/i</Mask>
         </filterports>
 
         <cacertificatepath type="CertificateField">
