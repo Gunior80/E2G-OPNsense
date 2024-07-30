@@ -27,7 +27,7 @@
 {%                          set current_bannedmimetypelist = helpers.getUUID(bannedmimetypelist) %}
 {%                          if current_bannedmimetypelist.mimetypefield is defined and current_bannedmimetypelist.mimetypefield != '' %}
 {%                              for mimetypefield in current_bannedmimetypelist.mimetypefield.split(',') %}
-{{ mimetypefield }}
+{{ mimetypefield|trim }}
 {%                              endfor %}
 {%                          endif %}
 {%                      endfor %}

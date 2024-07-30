@@ -42,7 +42,7 @@
                     <Required>N</Required>
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
-                    <Mask>/^(((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}|((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\/([0-9]|1[0-9]|2[0-9]|3[0-2])|((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\-((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4})$/i</Mask>
+                    <Mask>/^([ ]*((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}|((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\/([0-9]|1[0-9]|2[0-9]|3[0-2])|((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\-((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}[ ]*(#.*)?)$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>
@@ -52,14 +52,11 @@
                         </check001>
                     </Constraints>
                 </ipfield>
-                <sitefield type="HostnameField">
+                <sitefield type="CSVListField">
                     <Required>N</Required>
-                    <AsList>Y</AsList>
-                    <IpAllowed>N</IpAllowed>
-                    <HostWildcardAllowed>N</HostWildcardAllowed>
-                    <FqdnWildcardAllowed>N</FqdnWildcardAllowed>
-                    <ZoneRootAllowed>N</ZoneRootAllowed>
-                    <FieldSeparator>,</FieldSeparator>
+                    <multiple>Y</multiple>
+                    <MaskPerItem>Y</MaskPerItem>
+                    <Mask>/^[ ]*(([\w\-\.]*)?\.[a-z]+)[ ]*(#.*)?$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>
@@ -73,7 +70,7 @@
                     <Required>N</Required>
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
-                    <Mask>/^([-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/=]*))$/i</Mask>
+                    <Mask>/^([ ]*[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&amp;\/=]*)[ ]*(#.*)?)$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>
@@ -87,7 +84,7 @@
                     <Required>N</Required>
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
-                    <Mask>/^(([\w\d]+\+[\w\d]+)+)$/i</Mask>
+                    <Mask>/^([ ]*([\w\d]+\+[\w\d]+)+[ ]*(#.*)?)$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>
@@ -139,7 +136,7 @@
                     <Required>N</Required>
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
-                    <Mask>/^(&lt;.+&gt;(;&lt;.+&gt;)?)$/i</Mask>
+                    <Mask>/^([ ]*&lt;.+&gt;(;&lt;.+&gt;)?[ ]*(#.*)?)$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>
@@ -154,7 +151,7 @@
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
                     <FieldSeparator>;</FieldSeparator>
-                    <Mask>/^(&lt;.+&gt;(;&lt;.+&gt;)?&lt;(-)?[1-9]+0*&gt;)$/i</Mask>
+                    <Mask>/^([ ]*&lt;.+&gt;(;&lt;.+&gt;)?&lt;(-)?[1-9]+0*&gt;[ ]*(#.*)?)$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>
@@ -169,7 +166,7 @@
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
                     <FieldSeparator>;</FieldSeparator>
-                    <Mask>/^\.[0-9a-z]+$/i</Mask>
+                    <Mask>/^[ ]*\.[0-9a-z]+[ ]*(#.*)?$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>
@@ -184,7 +181,7 @@
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
                     <FieldSeparator>;</FieldSeparator>
-                    <Mask>/^[-\w.]+\/[-\w.+]+$/i</Mask>
+                    <Mask>/^[ ]*[-\w.]+\/[-\w.+]+[ ]*(#.*)?$/i</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>

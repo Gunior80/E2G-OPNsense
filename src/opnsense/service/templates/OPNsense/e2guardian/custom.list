@@ -6,32 +6,32 @@
 #listcategory: "{{ list.visiblename }}"
 {%          if list.ipfield is defined and list.ipfield != '' %}
 {%              for ip in list.ipfield.split(',') %}
-{{ ip }}
+{{ ip|trim }}
 {%              endfor %}
 {%          endif %}
 {%          if list.sitefield is defined and list.sitefield != '' %}
 {%              for site in list.sitefield.split(',') %}
-{{ site }}
+{{ site|trim }}
 {%              endfor %}
 {%          endif %}
 {%          if list.urlfield is defined and list.urlfield != '' %}
 {%              for url in list.urlfield.split(',') %}
-{{ url }}
+{{ url|trim }}
 {%              endfor %}
 {%          endif %}
 {%          if list.searchfield is defined and list.searchfield != '' %}
 {%              for search in list.searchfield.split(',') %}
-{{ search }}
+{{ search|trim }}
 {%              endfor %}
 {%          endif %}
 {%          if list.phrasefield is defined and list.phrasefield != '' %}
 {%              for phrase in list.phrasefield.split(',') %}
-{{ phrase|replace(";",",") }}
+{{ phrase|replace(";",",")|trim }}
 {%              endfor %}
 {%          endif %}
 {%          if list.weightedphrasefield is defined and list.weightedphrasefield != '' %}
 {%              for weightedphrase in list.weightedphrasefield.split(',') %}
-{{ weightedphrase|replace(";",",") }}
+{{ weightedphrase|replace(";",",")|trim }}
 {%              endfor %}
 {%          endif %}
 {%       endif %}

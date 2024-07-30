@@ -220,7 +220,7 @@
 {%                          set current_bannedextensionlist = helpers.getUUID(bannedextensionlist) %}
 {%                          if current_bannedextensionlist.extensionfield is defined and current_bannedextensionlist.extensionfield != '' %}
 {%                              for extension in current_bannedextensionlist.extensionfield.split(',') %}
-{{ extension }}
+{{ extension|trim }}
 {%                              endfor %}
 {%                          endif %}
 {%                      endfor %}

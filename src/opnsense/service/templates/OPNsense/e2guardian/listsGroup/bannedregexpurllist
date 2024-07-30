@@ -11,7 +11,7 @@
 {%                          set current_bannedregexpurllist = helpers.getUUID(bannedregexpurllist) %}
 {%                          if current_bannedregexpurllist.regexpurlfield is defined and current_bannedregexpurllist.regexpurlfield != '' %}
 {%                              for regexp in current_bannedregexpurllist.regexpurlfield.split(',') %}
-{{ regexp }}
+{{ regexp|trim }}
 {%                              endfor %}
 {%                          endif %}
 {%                      endfor %}

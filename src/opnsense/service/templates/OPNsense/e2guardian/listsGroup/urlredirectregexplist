@@ -11,7 +11,7 @@
 {%                          set current_urlredirectregexplist = helpers.getUUID(urlredirectregexplist) %}
 {%                          if current_urlredirectregexplist.regexpurlredirectfield is defined and current_urlredirectregexplist.regexpurlredirectfield != '' %}
 {%                              for regexp in current_urlredirectregexplist.regexpurlredirectfield.split(',') %}
-{{ regexp }}
+{{ regexp|trim }}
 {%                              endfor %}
 {%                          endif %}
 {%                      endfor %}

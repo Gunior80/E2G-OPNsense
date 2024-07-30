@@ -49,7 +49,7 @@
 {%                          set current_exceptionmimetypelist = helpers.getUUID(exceptionmimetypelist) %}
 {%                          if current_exceptionmimetypelist.mimetypefield is defined and current_exceptionmimetypelist.mimetypefield != '' %}
 {%                              for mimetypefield in current_exceptionmimetypelist.mimetypefield.split(',') %}
-{{ mimetypefield }}
+{{ mimetypefield|trim }}
 {%                              endfor %}
 {%                          endif %}
 {%                      endfor %}

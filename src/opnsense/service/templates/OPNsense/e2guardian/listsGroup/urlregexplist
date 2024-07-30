@@ -10,7 +10,7 @@
 {%                          set current_urlmodregexplist = helpers.getUUID(urlmodregexplist) %}
 {%                          if current_urlmodregexplist.regexpurlmodfield is defined and current_urlmodregexplist.regexpurlmodfield != '' %}
 {%                              for regexp in current_urlmodregexplist.regexpurlmodfield.split(',') %}
-{{ regexp }}
+{{ regexp|trim }}
 {%                              endfor %}
 {%                          endif %}
 {%                      endfor %}

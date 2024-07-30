@@ -58,7 +58,7 @@
 {%                          set current_exceptionextensionlist = helpers.getUUID(exceptionextensionlist) %}
 {%                          if current_exceptionextensionlist.extensionfield is defined and current_exceptionextensionlist.extensionfield != '' %}
 {%                              for extension in current_exceptionextensionlist.extensionfield.split(',') %}
-{{ extension }}
+{{ extension|trim }}
 {%                              endfor %}
 {%                          endif %}
 {%                      endfor %}
