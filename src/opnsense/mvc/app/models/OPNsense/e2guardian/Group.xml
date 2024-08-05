@@ -1,7 +1,7 @@
 <model>
     <mount>//OPNsense/e2guardian/group</mount>
     <description>E2guardian group configuration</description>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <items>
         <groups>
             <group type="ArrayField">

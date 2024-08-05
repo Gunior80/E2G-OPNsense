@@ -1,7 +1,7 @@
 <model>
     <mount>//OPNsense/e2guardian/clist</mount>
     <description>E2guardian custom list configuration</description>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <items>
         <clists>
             <clist type="ArrayField">
@@ -151,7 +151,7 @@
                     <multiple>Y</multiple>
                     <MaskPerItem>Y</MaskPerItem>
                     <FieldSeparator>;</FieldSeparator>
-                    <Mask>/^([ ]*&lt;.+&gt;(;&lt;.+&gt;)?&lt;(-)?[1-9]+0*&gt;[ ]*(#.*)?)$/i</Mask>
+                    <Mask>/^([ ]*&lt;.+&gt;(;&lt;.+&gt;)?&lt;(-)?[1-9]+0*&gt;[ ]*(#.*)?)$/u</Mask>
                     <Constraints>
                         <check001>
                             <ValidationMessage>This field must be set.</ValidationMessage>

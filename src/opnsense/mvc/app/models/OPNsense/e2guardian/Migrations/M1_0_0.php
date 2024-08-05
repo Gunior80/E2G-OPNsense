@@ -5,6 +5,7 @@ namespace OPNsense\e2guardian\Migrations;
 
 use OPNsense\Base\BaseModelMigration;
 
-class M0_0_1 extends BaseModelMigration
+class M1_0_0 extends BaseModelMigration
 {
+
 }

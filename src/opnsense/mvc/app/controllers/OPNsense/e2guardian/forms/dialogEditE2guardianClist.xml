@@ -24,6 +24,11 @@
     </field>
 
     <field>
+        <type>info</type>
+        <label>Hint</label>
+        <help>It is not recommended to create lists with more than 1000 items. This may cause your browser to freeze. It is better to create a new list.</help>
+    </field>
+    <field>
         <id>clist.ipfield</id>
         <label>IP adresses</label>
         <type>text</type>
