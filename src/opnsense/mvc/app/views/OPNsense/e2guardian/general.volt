@@ -49,6 +49,7 @@
                 <table id="grid-clists" class="table table-condensed table-hover table-striped" data-editDialog="dialogEditE2guardianClist">
                     <thead>
                         <tr>
+                            <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
                             <th data-column-id="enabled" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
                             <th data-column-id="listtype" data-type="string" data-visible="true">{{ lang._('Type') }}</th>
                             <th data-column-id="listname" data-type="string" data-visible="true">{{ lang._('Name') }}</th>
@@ -62,6 +63,7 @@
                             <td colspan="3"></td>
                             <td>
                                 <button data-action="add" type="button" class="btn btn-xs btn-default"><span class="fa fa-plus"></span></button>
+                                <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-trash-o"></span></button>
                             </td>
                         </tr>
                     </tfoot>
@@ -70,6 +72,9 @@
             <div class="col-md-12">
                 <hr />
                 <button class="btn btn-primary" id="saveAct_clist" type="button"><b>{{ lang._('Save') }}</b> <i id="saveAct_clist_progress"></i></button>
+                <button class="btn btn-primary" id="downloadprelist"
+                type="button" data-endpoint='/api/e2guardian/service/downloadprelist'
+                data-label="{{ lang._('Download preinstalled lists') }}"></button>
                 <br /><br />
             </div>
     </div>
@@ -190,6 +195,11 @@ $(document).ready(function() {
         field.show();
      });
 
+    $("#downloadprelist").SimpleActionButton({
+        onAction: function(data, status){
+            location.reload();
+        }
+    });
 
     // update history on tab state and implement navigation
     if (window.location.hash != "") {

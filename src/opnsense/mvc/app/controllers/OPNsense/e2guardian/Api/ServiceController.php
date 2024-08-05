@@ -27,8 +27,21 @@ class ServiceController extends ApiMutableServiceControllerBase
         $backend = new Backend();
         $backend->configdRun('template cleanup ' . escapeshellarg(static::$internalServiceTemplate));
         $backend->configdRun('template reload ' . escapeshellarg(static::$internalServiceTemplate));
-
+        $backend->configdRun("e2guardian restart");
         return ['result' => 'ok'];
+    }
+
+    public function downloadprelistAction()
+    {
+        if ($this->request->isPost()) {
+            $this->sessionClose();
+            $backend = new Backend();
+            $backend->configdRun('template reload' . escapeshellarg(static::$internalServiceTemplate));
+            $response = $backend->configdRun("e2guardian initlists");
+            return array("response" => $response,"status" => "ok");
+        } else {
+            return array("response" => array());
+        }
     }
 
 
